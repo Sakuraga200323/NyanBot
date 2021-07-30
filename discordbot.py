@@ -92,7 +92,8 @@ flag = True
     
 @client.event
 async def on_message(msg):
-    global NYAN,flag
+    global NYAN
+    global flag
     
     msg_ctt = msg.content
     msg_ch = msg.channel
@@ -106,9 +107,9 @@ async def on_message(msg):
             await msg_ch.send(comment)
 
     if msg.author.id == odaneko_id and flag == True:
-        flag = False
         if msg.channel.id in anti_ch_tuple:
             return
+        flag = False
         print(f'メッセージを取得：{msg_ctt}')
         num_up1 = get_data(get_ch(day_up_id_1))
         num_up2 = get_data(get_ch(day_up_id_2))
