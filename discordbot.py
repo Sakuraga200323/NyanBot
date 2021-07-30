@@ -38,19 +38,17 @@ anti_ch_tuple = (
 )
 
 ng_word_tuple = (
-    '死ね', 
+    '死ね', 'ﾀﾋね',
     '消えろ', 
-    'ﾀﾋね',
-    'だまれ',
-    '黙れ',
-    '帰れ',
-    '消えろ',
+    'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ'
+    '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ'
+    '消えろ', 'キエロ','きえろ','ｷｴﾛ'
     'ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck'
     'おだまり',
 )
 
 need_word_tuple = (
-    'nya', 'Nya',
+    'nya', 'Nya', 'NYA'
     'にゃ', 'ニャ', 'ﾆｬ'
 )
 def check_nyan(text):
@@ -83,7 +81,8 @@ user_numlog_ch = None
 async def ch_edit_loop():
     global NYAN
     num_result = get_data(nyanlog_ch) + NYAN
-    print(NYAN)
+    if NYAN != 0:
+        print(NYAN)
     if NYAN != get_data(nyanlog_ch):
         ch_name = f'合計日数：{num_result}'
         await nyanlog_ch.edit(name=ch_name)
