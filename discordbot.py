@@ -139,6 +139,8 @@ async def on_message(msg):
     global nyan_checking_members_id
     global master_flag
     
+    guild = msg.guild
+    
     msg_ctt = msg.content
     msg_ch = msg.channel
     msg_author_id = msg.author.id
