@@ -154,7 +154,7 @@ async def on_message(msg):
             master_flag = True
 
     if master_flag == True:
-        if (msg.author.id != odaneko_id):
+        if (not msg.author.id in (odaneko_id, client.user.id)):
             for i in ng_word_tuple:
                 if i in msg_ctt:
                     re_text_tuple = (
