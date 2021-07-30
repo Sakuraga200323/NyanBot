@@ -59,9 +59,10 @@ def get_data(ch):
 
 NYAN = 0
 
-@tasks.loop(seconds=60)
+@tasks.loop(seconds=10)
 async def ch_edit_loop():
     num_result = get_data(nyanlog_ch) + NYAN
+    print(NYAN)
     if NYAN != get_data(nyanlog_ch):
         ch_name = f'合計日数：{num_result}'
         nyanlog_ch.edit(name=ch_name)
@@ -97,7 +98,7 @@ async def on_message(msg):
     if msg.author.id == odaneko_id:
         if msg.channel.id in anti_ch_tuple:
             return
-        print("メッセージを取得")
+        print(f'メッセージを取得：{msg_ctt}')
         num_up1 = get_data(get_ch(day_up_id_1))
         num_up2 = get_data(get_ch(day_up_id_2))
         num_down = get_data(get_ch(day_down_id))
