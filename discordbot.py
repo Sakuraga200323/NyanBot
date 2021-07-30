@@ -144,8 +144,16 @@ async def on_message(msg):
             num_down = get_data(get_ch(day_down_id))
             check = 0
             if check_nyan(msg_ctt):
+                def check_nyan_try2(m):
+                    if m.author.id != msg.author.id:
+                        return 0
+                    if m.channel.id != msg_ch.id:
+                        return 0
+                    if check_nyan(m.content):
+                        return 0
+                    return 1
                 try:
-                    msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
+                    msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
                 except asyncio.TimeoutError:
                     check += num_up1
                     await msg_ch.send(f'**{msg.author}**さん、にゃん！')
