@@ -1,7 +1,6 @@
 
 import ast
 import asyncio
-import cv2
 from datetime import datetime, timedelta, timezone
 import math
 import os
