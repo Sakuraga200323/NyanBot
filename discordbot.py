@@ -24,7 +24,7 @@ JST = timezone(timedelta(hours=+9), 'JST')
 print("Nyan!!")
 prefix = 'nyan!'
 
-odaneko_id = 846356637271064627
+odaneko_id = 827903603557007390
 nyanlog_ch_id = 870331978770157658
 guild_id = 870264494541135882
 
@@ -97,6 +97,7 @@ async def on_message(msg):
     if msg.author.id == odaneko_id:
         if msg.channel.id in anti_ch_tuple:
             return
+        print("メッセージを取得")
         num_up1 = get_data(get_ch(day_up_id_1))
         num_up2 = get_data(get_ch(day_up_id_2))
         num_down = get_data(get_ch(day_down_id))
