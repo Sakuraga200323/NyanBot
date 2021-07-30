@@ -16,5 +16,4 @@ async def on_command_error(ctx, error):
 async def ping(ctx):
     await ctx.send('Nyang!!')
 
-
 bot.run(token)
