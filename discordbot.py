@@ -270,7 +270,7 @@ async def on_message(msg):
         else:
             
             if msg_ch.id == 870266562018426921:
-                if msg_ctt.starts_with('nyan!trade "'):
+                if msg_ctt.startswith('nyan!trade "'):
                     de = msg._ctt.split('"')[1]
                     q = msg._ctt.split('"')[3]
                     plus_a = msg._ctt.split('"')[5]
