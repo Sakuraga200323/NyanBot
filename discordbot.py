@@ -13,9 +13,6 @@ import traceback
 
 import discord
 from discord.ext import tasks, commands
-import psutil
-import psycopg2, psycopg2.extras
-import traceback
 
 client = discord.Client(intents=discord.Intents.all())
 token = os.environ['TOKEN']
