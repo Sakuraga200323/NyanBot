@@ -124,6 +124,7 @@ async def on_message(msg):
     global NYAN
     global flag
     global odaneko_id
+    global nyan_checking_members_id
     
     msg_ctt = msg.content
     msg_ch = msg.channel
@@ -158,9 +159,11 @@ async def on_message(msg):
                     msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
                 except asyncio.TimeoutError:
                     check += num_up1
-                    await msg_ch.send(f'**{msg.author}**さん、にゃん！')
+                    temp = await msg_ch.send(f'**{msg.author}**さん、にゃん！')
                 else:
-                    await msg_ch.send(f'セーフ！\nあと少し遅かったら加算だったにゃん！')
+                    temp = await msg_ch.send(f'セーフ！\nあと少し遅かったら加算だったにゃん！')
+                await asyncio.sleep(3)
+                await temp.delete()
             else:
                 check -= 1
             member = guild.get_member(msg.author.id)
@@ -177,7 +180,7 @@ async def on_message(msg):
             count = int(count)
             count += check
             await member.edit(nick=nick_left+f'｜NyanCount:{count}')
-            checking_members_id.remove(msg_author_id)
+            nyan_checking_members_id.remove(msg_author_id)
             
             
             
@@ -205,19 +208,20 @@ async def on_message(msg):
                 msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
             except asyncio.TimeoutError:
                 check += num_up1
-                await msg_ch.send('あの…**にゃん**が付いて無いです…')
+                temp = await msg_ch.send('あの…**にゃん**が付いて無いです…')
             else:
-                await msg_ch.send('ちゃんと**にゃん**がつけれてえらいです！')
-                await asyncio.sleep(1)
-                await msg_ch.send('いいこいいこ♪')
+                temp = await msg_ch.send('せーふにゃん！！')
         else:
             check -= 1
         for i in ng_word_tuple:
             if i in msg_ctt:
                 check += num_up2
-                await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
+                temp = await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
         NYAN += check
         flag = True
+        await asyncio.sleep(3)
+        if temp:
+            await temp.delete()
 
     else:
         if msg_ctt.startswith(prefix):
