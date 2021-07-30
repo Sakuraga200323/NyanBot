@@ -61,9 +61,11 @@ NYAN = 0
 
 @tasks.loop(seconds=60)
 async def ch_edit_loop():
-        num_result = get_data(nyanlog_ch) + check
+    num_result = get_data(nyanlog_ch) + NYAN
+    if NYAN != get_data(nyanlog_ch):
         ch_name = f'合計日数：{num_result}'
         nyanlog_ch.edit(name=ch_name)
+
 odaneko = None
 guild = None
 nyanlog_ch = None
