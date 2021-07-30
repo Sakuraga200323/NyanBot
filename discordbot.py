@@ -91,7 +91,8 @@ async def ch_edit_loop():
         if get_data(user_numlog_ch) != user_num:
             ch_name = f'総合人数：{user_num}'
             await user_numlog_ch.edit(name=ch_name)
-        
+    else:
+        print("人数記録チャンネルがない！")
 
 odaneko = None
 guild = None
@@ -213,7 +214,7 @@ async def on_message(msg):
 
     else:
         if msg_ctt.startswith(prefix):
-            cmd1 = prefix+'add_count'
+            cmd1 = prefix+'add_count '
             if msg_ctt.startswith(cmd1):
                 num = int(msg_ctt.split(cmd1)[1])
                 if num <= 365:
@@ -226,7 +227,7 @@ async def on_message(msg):
                 re_text = f'{num_result}日になったよ!'
                 await msg_ch.semd(re_text)
                 
-            cmd2 = prefix+'set_user'
+            cmd2 = prefix+'set_user '
             if msg_ctt.startswith(cmd2):
                 re_text = ""
                 if (msg_ctt.split(cmd2)[1]).isdigit():
