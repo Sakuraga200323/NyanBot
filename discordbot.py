@@ -60,6 +60,8 @@ def get_data(ch):
     num = int(ch.name.split('：')[1])
     return num
 
+
+
 @tasks.loop(seconds=60)
 async def ch_edit_loop():
     pass
@@ -107,7 +109,7 @@ async def on_message(msg):
     else:
         if msg_ctt.startswith(prefix):
             cmd1 = prefix+'add_count'
-            if msg_ctt.startswith(cmd1)
+            if msg_ctt.startswith(cmd1):
                 num = int(msg_ctt.split(cmd1)[1])
                 if num <= 365:
                     re_text = '増やす量が多すぎるよォ…365より小さくしてね'
