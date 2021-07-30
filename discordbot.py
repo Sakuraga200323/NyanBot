@@ -60,11 +60,13 @@ def get_data(ch):
     num = int(ch.name.split('：')[1])
     return num
 
-
+NYAN = 0
 
 @tasks.loop(seconds=60)
 async def ch_edit_loop():
-    pass
+        num_result = get_data(nyanlog_ch) + check
+        ch_name = f'合計日数：{num_result}'
+        nyanlog_ch.edit(name=ch_name)
 
 @client.event
 async def on_ready():
@@ -73,6 +75,8 @@ async def on_ready():
     
 @client.event
 async def on_message(msg):
+    global NYAN
+    
     msg_ctt = msg.content
     msg_ch = msg.channel
     
@@ -97,14 +101,14 @@ async def on_message(msg):
                 temp += 1
         if temp >= len(need_word_tuple):
             check += num_up1
+            await msg_ch.send('あの…**にゃん**が付いて無いです…')
         else:
             check -= 1
         for i in ng_word_tuple:
             if i in msg_ctt:
                 check += num_up2
-        num_result = get_data(nyanlog_ch) + check
-        ch_name = f'合計日数：{num_result}'
-        nyanlog_ch.edit(name=ch_name)
+                await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
+        NYAN += check
 
     else:
         if msg_ctt.startswith(prefix):
