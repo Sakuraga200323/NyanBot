@@ -24,8 +24,8 @@ JST = timezone(timedelta(hours=+9), 'JST')
 print("Nyan!!")
 prefix = 'nyan!'
 
-#odaneko_id = 846356637271064627
-odaneko_id = 827903603557007390
+odaneko_id = 846356637271064627
+#odaneko_id = 827903603557007390
 nyanlog_ch_id = 870331978770157658
 user_numlog_ch_id = 870332072408002600
 guild_id = 870264494541135882
