@@ -37,12 +37,12 @@ anti_ch_tuple = (
 )
 
 ng_word_tuple = (
-    '死ね', 'ﾀﾋね',
+    '死ね', 'ﾀﾋね','しね',
     '消えろ', 
-    'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって'
-    '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ'
-    '消えろ', 'キエロ','きえろ','ｷｴﾛ'
-    'ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck'
+    'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって',
+    '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ',
+    '消えろ', 'キエロ','きえろ','ｷｴﾛ',
+    'ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck',
     'おだまり',
     'おまえ',
     'アホ',
@@ -154,7 +154,7 @@ async def on_message(msg):
             master_flag = True
 
     if master_flag == True:
-        if (not msg.author.id in (odaneko_id, client.user.id)):
+        if (not msg.author.id in (odaneko_id, client.user.id) and not msg.author.bot):
             for i in ng_word_tuple:
                 if i in msg_ctt:
                     re_text_tuple = (
