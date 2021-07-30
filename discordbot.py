@@ -87,9 +87,11 @@ async def on_ready():
     ch_edit_loop.start()
     print("Ready!!")
     
+flag = True
+    
 @client.event
 async def on_message(msg):
-    global NYAN
+    global NYAN,flag
     
     msg_ctt = msg.content
     msg_ch = msg.channel
@@ -102,7 +104,8 @@ async def on_message(msg):
             comment = random.choice(list(re_tuple))
             await msg_ch.send(comment)
 
-    if msg.author.id == odaneko_id:
+    if msg.author.id == odaneko_id and flag == True:
+        flag = False
         if msg.channel.id in anti_ch_tuple:
             return
         print(f'メッセージを取得：{msg_ctt}')
@@ -135,6 +138,7 @@ async def on_message(msg):
                 check += num_up2
                 await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
         NYAN += check
+        fag = True
 
     else:
         if msg_ctt.startswith(prefix):
