@@ -43,7 +43,9 @@ ng_word_tuple = (
     '消えろ', 
     'ﾀﾋね',
     'だまれ',
-    '黙れ'
+    '黙れ',
+    '帰れ',
+    '消えろ'
 )
 
 need_word_tuple = (
@@ -163,9 +165,9 @@ async def on_message(msg):
             nick = member.nick
             if not nick:
                 nick = member.name
-            print(member,nick)
             if not "｜NyanCount:" in nick:
                 await member.edit(nick=nick+"｜NyanCount:0")
+                nick = member.name
             count = nick.split("｜NyanCount:")[1]
             nick_left = nick.nick.split("｜NyanCount:")[0]
             if (day).isdigit() == False:
