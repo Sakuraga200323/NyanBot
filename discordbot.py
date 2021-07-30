@@ -24,8 +24,10 @@ JST = timezone(timedelta(hours=+9), 'JST')
 print("Nyan!!")
 prefix = 'nyan!'
 
-odaneko_id = 846356637271064627
+#odaneko_id = 846356637271064627
+odaneko_id = 827903603557007390
 nyanlog_ch_id = 870331978770157658
+user_numlog_ch_id = 870332072408002600
 guild_id = 870264494541135882
 
 anti_ch_tuple = (
@@ -74,29 +76,56 @@ async def ch_edit_loop():
         ch_name = f'合計日数：{num_result}'
         await nyanlog_ch.edit(name=ch_name)
         NYAN = 0
+    user_num = len(guild.members)
+    bot_num = 0
+    for i in guild.members:
+        if i.bot:
+            bot_num += 1
+            user_num -= 1
+    if get_data(user_numlog_ch) != user_num:
+        num_result = user_num
+        ch_name = f'総合人数：{num_result}'
+        await user_numlog_ch.edit(name=ch_name)
+        
 
 odaneko = None
 guild = None
 nyanlog_ch = None
+user_numlog_ch = None
 @client.event
 async def on_ready():
     global odakenko, guild, nyanlog_ch
     odaneko = client.get_user(odaneko_id)
     guild = client.get_guild(guild_id)
     nyanlog_ch = guild.get_channel(nyanlog_ch_id)
+    user_numlog_ch = guild.get_channel(user_numlog_ch_id)
     
     ch_edit_loop.start()
-    print("Ready!!")
+    print("Nyan!!")
     
 flag = True
+
+nyan_checking_members_id = []
+
+
+def check_nyan_try(m):
+    if m.author.id != odaneko_id:
+        return 0
+    if m.channel.id != msg_ch.id:
+        return 0
+    if check_nyan(m.content):
+        return 0
+    return 1
     
 @client.event
 async def on_message(msg):
     global NYAN
     global flag
+    global odaneko_id
     
     msg_ctt = msg.content
     msg_ch = msg.channel
+    msg_author_id = msg.author.id
     
     if (msg_ctt.startswith(prefix)):
         command = msg_ctt.split(prefix)[1]
@@ -105,6 +134,39 @@ async def on_message(msg):
             re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
             comment = random.choice(list(re_tuple))
             await msg_ch.send(comment)
+            
+    nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).get_members ]
+    if msg_author_id in nyan_members_id:
+        if not msg_author_id in nyan_checking_members_id:
+            nyan_checking_members_id.append(msg_author_id)
+            num_up1 = get_data(get_ch(day_up_id_1))
+            num_up2 = get_data(get_ch(day_up_id_2))
+            num_down = get_data(get_ch(day_down_id))
+            check = 0
+            if check_nyan(msg_ctt):
+                try:
+                    msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
+                except asyncio.TimeoutError:
+                    check += num_up1
+                    await msg_ch.send(f'**{msg.author}**さん、にゃん！')
+                else:
+                    await msg_ch.send(f'セーフ！\nあと少し遅かったら加算だったにゃん！')
+            else:
+                check -= 1
+            member = guild.get_member(masg_author_id)
+            nick = member.nick
+            if not "｜NyanCount:" in nick:
+                await member.edit(nick=nick+"｜NyanCount:0")
+            count = nick.split("｜NyanYear:")[1]
+            nick_left = nick.nick.split("｜NyanYear:")[0]
+            if (day).isdigit() == False:
+                await member.edit(nick=member.name+"｜NyanCount:0")
+            count = int(day)
+            count += check
+            await member.edit(nick=nick_left+f'｜NyanCount:{count}')
+            
+            
+            
 
     if msg.author.id == odaneko_id and flag == True:
         if msg.channel.id in anti_ch_tuple:
@@ -116,14 +178,6 @@ async def on_message(msg):
         num_down = get_data(get_ch(day_down_id))
         check = 0
         if check_nyan(msg_ctt):
-            def check_nyan_try(m):
-                if m.author.id != odaneko_id:
-                    return 0
-                if m.channel.id != msg_ch.id:
-                    return 0
-                if check_nyan(m.content):
-                    return 0
-                return 1
             try:
                 msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
             except asyncio.TimeoutError:
@@ -156,5 +210,19 @@ async def on_message(msg):
                 await nyanlog_ch.edit(name=ch_name)
                 re_text = f'{num_result}日になったよ!'
                 await msg_ch.semd(re_text)
+                
+            cmd2 = prefix+'set_user'
+            if msg_ctt.startswith(cmd2):
+                re_text = ""
+                if (msg_ctt.split(cmd2)[1]).isdigit():
+                    id = int(msg_ctt.split(cmd2)[1])
+                    user = guild.get_member(id)
+                    if user:
+                        re_text = f'{user.mention}をみはるにゃん(=^・・^=)'
+                        odaineko_id = id
+                    else:
+                        re_text = f'**{id}**って人が見つからなかったにゃん…'
+                else:
+                    re_text = f'**{msg_ctt.split(cmd2)[1]}**は絶対USER_IDじゃないにゃん…\n`nyan!set_user USER_ID`でセットできるにゃん！'
 
 client.run(token)
