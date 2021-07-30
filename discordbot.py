@@ -117,7 +117,7 @@ async def on_message(msg):
                     return 0
                 if nyan_check(m.content):
                     return 0
-                reuturn 1
+                return 1
             try:
                 msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
             except asyncio.TimeoutError:
