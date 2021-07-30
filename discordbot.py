@@ -26,7 +26,7 @@ prefix = 'nyan!'
 
 #odaneko_id = 846356637271064627
 odaneko_id = 827903603557007390
-nyanlog_ch_id = 870331978770157658
+nyanlog_ch_id = 870332072408002600
 user_numlog_ch_id = 870332072408002600
 guild_id = 870264494541135882
 
@@ -82,10 +82,11 @@ async def ch_edit_loop():
         if i.bot:
             bot_num += 1
             user_num -= 1
-    if get_data(user_numlog_ch) != user_num:
-        num_result = user_num
-        ch_name = f'総合人数：{num_result}'
-        await user_numlog_ch.edit(name=ch_name)
+    if user_numlog_ch != None:
+        if get_data(user_numlog_ch) != user_num:
+            num_result = user_num
+            ch_name = f'総合人数：{num_result}'
+            await user_numlog_ch.edit(name=ch_name)
         
 
 odaneko = None
