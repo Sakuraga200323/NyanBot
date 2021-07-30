@@ -101,7 +101,7 @@ async def ch_edit_loop():
 
 @client.event
 async def on_ready():
-    global odakenko, guild, nyanlog_ch
+    global odakenko, guild, nyanlog_ch, user_numlog_ch
     odaneko = client.get_user(odaneko_id)
     guild = client.get_guild(guild_id)
     nyanlog_ch = guild.get_channel(nyanlog_ch_id)
