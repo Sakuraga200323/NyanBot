@@ -72,6 +72,7 @@ async def ch_edit_loop():
     if NYAN != get_data(nyanlog_ch):
         ch_name = f'合計日数：{num_result}'
         await nyanlog_ch.edit(name=ch_name)
+        NYAN = 0
 
 odaneko = None
 guild = None
