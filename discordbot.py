@@ -109,13 +109,13 @@ async def on_message(msg):
         num_up2 = get_data(get_ch(day_up_id_2))
         num_down = get_data(get_ch(day_down_id))
         check = 0
-        if nyan_check(msg_ctt):
+        if check_nyan(msg_ctt):
             def check_nyan_try(m):
                 if m.author.id != odaneko_id:
                     return 0
                 if m.channel.id != msg_ch.id:
                     return 0
-                if nyan_check(m.content):
+                if check_nyan(m.content):
                     return 0
                 return 1
             try:
