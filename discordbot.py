@@ -44,7 +44,7 @@ async def on_message(msg):
         
         if (command == "ping"):
             re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
-            comment = random.choice(re_tuple)
+            comment = random.choice(list(re_tuple))
             await msg_ch.send(comment)
 
 client.run(token)
