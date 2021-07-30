@@ -27,9 +27,6 @@ prefix = 'nyan!'
 odaneko_id = 846356637271064627
 nyanlog_ch_id = 870331978770157658
 guild_id = 870264494541135882
-odaneko = client.get_user(odaneko_id)
-guild = client.get_guild(guild_id)
-nyanlog_ch = guild.get_channel(nyanlog_ch_id)
 
 anti_ch_tuple = (
     870324797291261992,
@@ -67,9 +64,16 @@ async def ch_edit_loop():
         num_result = get_data(nyanlog_ch) + check
         ch_name = f'合計日数：{num_result}'
         nyanlog_ch.edit(name=ch_name)
-
+odaneko = None
+guild = None
+nyanlog_ch = None
 @client.event
 async def on_ready():
+    global odakenko, guild, nyanlog_ch
+    odaneko = client.get_user(odaneko_id)
+    guild = client.get_guild(guild_id)
+    nyanlog_ch = guild.get_channel(nyanlog_ch_id)
+    
     ch_edit_loop.start()
     print("Ready!!")
     
