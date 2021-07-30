@@ -164,7 +164,7 @@ async def on_message(msg):
                     await msg_ch.send(f'セーフ！\nあと少し遅かったら加算だったにゃん！')
             else:
                 check -= 1
-            member = guild.get_member(msg_author_id)
+            member = guild.get_member(msg.author.id)
             nick = member.nick
             print(nick)
             if not "｜NyanCount:" in nick:
