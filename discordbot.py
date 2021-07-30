@@ -161,6 +161,8 @@ async def on_message(msg):
                 check -= 1
             member = guild.get_member(msg.author.id)
             nick = member.nick
+            if not nick:
+                nick = member.name
             print(member,nick)
             if not "｜NyanCount:" in nick:
                 await member.edit(nick=nick+"｜NyanCount:0")
