@@ -21,7 +21,9 @@ developer = client.get_user(827903603557007390)
 
 # 時間軸設定
 JST = timezone(timedelta(hours=+9), 'JST')
-    
+
+print("Nyan!!")
+
 @tasks.loop(seconds=60)
 async def ch_edit_loop():
     channel = client.get_channel(CHANNEL_ID)
