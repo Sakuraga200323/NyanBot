@@ -171,7 +171,7 @@ async def on_message(msg):
                 await member.edit(nick=nick+"｜NyanCount:0")
                 nick = member.name
             count = nick.split("｜NyanCount:")[1]
-            nick_left = nick.nick.split("｜NyanCount:")[0]
+            nick_left = nick.split("｜NyanCount:")[0]
             if (day).isdigit() == False:
                 await member.edit(nick=member.name+"｜NyanCount:0")
             count = int(day)
