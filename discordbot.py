@@ -147,7 +147,7 @@ async def on_message(msg):
         if msg_ctt == "Nyan、ちょっとだまって":
             await msg_ch.send('にゃぁ…')
             master_flag = False
-        if msg_ctt == "Nyan、話していいよ"
+        if msg_ctt == "Nyan、話していいよ":
             await msg_ch.send('にゃぁ！！')
             master_flag = True
 
