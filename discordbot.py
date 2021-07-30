@@ -45,9 +45,9 @@ need_word_tuple = (
     'にゃ', 'ニャ', 'ﾆｬ'
 )
 
-day_up_id_1 = 870333975141429319
-day_up_id_2 = 870334047040204880
-day_down_id = 870334141739180082
+day_up_id_1 = 870334047040204880
+day_up_id_2 = 870334141739180082
+day_down_id = 870333975141429319
 
 def get_ch(int):
     ch = guild.get_channel(int)
@@ -65,7 +65,7 @@ async def ch_edit_loop():
     print(NYAN)
     if NYAN != get_data(nyanlog_ch):
         ch_name = f'合計日数：{num_result}'
-        nyanlog_ch.edit(name=ch_name)
+        await nyanlog_ch.edit(name=ch_name)
 
 odaneko = None
 guild = None
@@ -129,7 +129,7 @@ async def on_message(msg):
                     return
                 num_result = get_data(nyanlog_ch) + num
                 ch_name = f'合計日数：{num_result}'
-                nyanlog_ch.edit(name=ch_name)
+                await nyanlog_ch.edit(name=ch_name)
                 re_text = f'{num_result}日になったよ!'
                 await msg_ch.semd(re_text)
 
