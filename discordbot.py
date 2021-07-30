@@ -183,7 +183,13 @@ async def on_message(msg):
                         msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
                     except asyncio.TimeoutError:
                         check += num_up1
-                        temp = await msg_ch.send(f'**{msg.author}**さん、にゃん！')
+                        re_text_tuple = (
+                            f'**{msg.author}**さん、にゃん！',
+                            f'**{msg.author}**さん猫語忘れてるにゃ～',
+                            f'**{msg.author}**さんは猫語でしゃべらないとにゃ！',
+                        )
+                        re_text = random.choice(re_text_tuple)
+                        temp = await msg_ch.send(re_text)
                     else:
                         temp = await msg_ch.send(f'セーフ！\nあと少し遅かったら加算だったにゃん！')
                     await asyncio.sleep(3)
