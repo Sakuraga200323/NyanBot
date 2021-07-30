@@ -157,8 +157,15 @@ async def on_message(msg):
         if (msg.author.id != odaneko_id):
             for i in ng_word_tuple:
                 if i in msg_ctt:
-                    check += num_up2
-                    temp = await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
+                    re_text_tuple = (
+                        f'**{i}**なんていう人きらいにゃ！',
+                        f'なんで**{i}**なんていうにゃ…',
+                        f'言葉は時として相手を傷つけるにゃ。\n**{i}**なんていい例にゃ',
+                        f'**{i}**は決していいことばじゃにゃーよ…',
+                    )
+                    re_text = random.choice(re_text_tuple)
+                    temp = await msg_ch.send(re_text)
+
         if (msg_ctt.startswith(prefix)):
             command = msg_ctt.split(prefix)[1]
 
