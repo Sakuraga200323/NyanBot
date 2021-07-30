@@ -71,6 +71,11 @@ def get_data(ch):
 
 NYAN = 0
 
+odaneko = None
+guild = None
+nyanlog_ch = None
+user_numlog_ch = None
+
 @tasks.loop(seconds=10)
 async def ch_edit_loop():
     global NYAN
@@ -94,10 +99,6 @@ async def ch_edit_loop():
     else:
         print("人数記録チャンネルがない！")
 
-odaneko = None
-guild = None
-nyanlog_ch = None
-user_numlog_ch = None
 @client.event
 async def on_ready():
     global odakenko, guild, nyanlog_ch
