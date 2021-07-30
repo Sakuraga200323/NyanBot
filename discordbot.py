@@ -136,8 +136,8 @@ async def on_message(msg):
             comment = random.choice(list(re_tuple))
             await msg_ch.send(comment)
             
-    nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).get_members ]
-    if msg_author_id in nyan_members_id:
+    nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).members ]
+    if msg_author_id in nyan_members_id and msg_ctt != "":
         if not msg_author_id in nyan_checking_members_id:
             nyan_checking_members_id.append(msg_author_id)
             num_up1 = get_data(get_ch(day_up_id_1))
@@ -173,11 +173,12 @@ async def on_message(msg):
             count = int(day)
             count += check
             await member.edit(nick=nick_left+f'｜NyanCount:{count}')
+            checking_members_id.remove(msg_author_id)
             
             
             
 
-    if msg.author.id == odaneko_id and flag == True:
+    if msg.author.id == odaneko_id and flag == True and msg_ctt != "":
         if msg.channel.id in anti_ch_tuple:
             return
         flag = False
