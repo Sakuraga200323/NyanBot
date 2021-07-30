@@ -67,6 +67,7 @@ NYAN = 0
 
 @tasks.loop(seconds=10)
 async def ch_edit_loop():
+    global NYAN
     num_result = get_data(nyanlog_ch) + NYAN
     print(NYAN)
     if NYAN != get_data(nyanlog_ch):
