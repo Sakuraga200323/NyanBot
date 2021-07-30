@@ -112,15 +112,6 @@ flag = True
 
 nyan_checking_members_id = []
 
-
-def check_nyan_try(m):
-    if m.author.id != odaneko_id:
-        return 0
-    if m.channel.id != msg_ch.id:
-        return 0
-    if check_nyan(m.content):
-        return 0
-    return 1
     
 @client.event
 async def on_message(msg):
@@ -193,6 +184,15 @@ async def on_message(msg):
         num_down = get_data(get_ch(day_down_id))
         check = 0
         if check_nyan(msg_ctt):
+
+            def check_nyan_try(m):
+                if m.author.id != odaneko_id:
+                    return 0
+                if m.channel.id != msg_ch.id:
+                    return 0
+                if check_nyan(m.content):
+                    return 0
+                return 1
             try:
                 msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
             except asyncio.TimeoutError:
