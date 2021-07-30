@@ -268,6 +268,21 @@ async def on_message(msg):
                 await temp.delete()
 
         else:
+            
+            if cmsg_ch.id == 870266562018426921:
+                if msg_ctt.starts_with('nyan!trade "'):
+                    de = msg._ctt.split('"'):[1]
+                    q = msg._ctt.split('"'):[3]
+                    plus_a = msg._ctt.split('"'):[5]
+                    embed = discord.Embed(title=f'{msg.author.name}さんの取引です')
+                    embed.add_field(name="**出**", value=de)
+                    embed.add_field(name="**求**", value=q)
+                    embed.add_field(name="**追記**", value=plus_a)
+                    await msg_ch.send(embed=embed)
+                    await asyncio.sleep(5)
+                    await msg.delete()
+            
+            
             if msg_ctt.startswith(prefix):
                 cmd1 = prefix+'add_count '
                 if msg_ctt.startswith(cmd1):
