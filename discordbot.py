@@ -39,7 +39,7 @@ anti_ch_tuple = (
 ng_word_tuple = (
     '死ね', 'ﾀﾋね',
     '消えろ', 
-    'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ'
+    'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって'
     '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ'
     '消えろ', 'キエロ','きえろ','ｷｴﾛ'
     'ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck'
@@ -61,7 +61,7 @@ ng_word_tuple = (
 )
 
 need_word_tuple = (
-    'nya', 'Nya', 'NYA'
+    'nya', 'Nya', 'NYA',
     'にゃ', 'ニャ', 'ﾆｬ'
 )
 def check_nyan(text):
@@ -154,6 +154,11 @@ async def on_message(msg):
             master_flag = True
 
     if master_flag == True:
+        if (msg.author.id != odaneko_id):
+            for i in ng_word_tuple:
+                if i in msg_ctt:
+                    check += num_up2
+                    temp = await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
         if (msg_ctt.startswith(prefix)):
             command = msg_ctt.split(prefix)[1]
 
