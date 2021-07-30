@@ -143,7 +143,7 @@ async def on_message(msg):
     msg_ch = msg.channel
     msg_author_id = msg.author.id
     
-    if msg.author.id == developer.id:
+    if msg.author.id == 827903603557007390:
         if msg_ctt == "Nyan、ちょっとだまって":
             await msg_ch.send('にゃぁ…')
             master_flag = False
