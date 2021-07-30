@@ -187,6 +187,8 @@ async def on_message(msg):
                             f'**{msg.author}**さん、にゃん！',
                             f'**{msg.author}**さん猫語忘れてるにゃ～',
                             f'**{msg.author}**さんは猫語でしゃべらないとにゃ！',
+                            f'**{msg.author}**さん、猫語！',
+                            f'**{msg.author}**さん、あなたそれでも猫にゃ！？',
                         )
                         re_text = random.choice(re_text_tuple)
                         temp = await msg_ch.send(re_text)
