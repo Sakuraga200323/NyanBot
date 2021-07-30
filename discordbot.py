@@ -39,7 +39,9 @@ anti_ch_tuple = (
 ng_word_tuple = (
     '死ね', 
     '消えろ', 
-    'ﾀﾋね'
+    'ﾀﾋね',
+    'だまれ',
+    '黙れ'
 )
 
 need_word_tuple = (
@@ -164,6 +166,7 @@ async def on_message(msg):
                 check -= 1
             member = guild.get_member(msg_author_id)
             nick = member.nick
+            print(nick)
             if not "｜NyanCount:" in nick:
                 await member.edit(nick=nick+"｜NyanCount:0")
             count = nick.split("｜NyanYear:")[1]
