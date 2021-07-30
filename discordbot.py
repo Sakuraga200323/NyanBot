@@ -12,8 +12,7 @@ import traceback
 import discord
 from discord.ext import tasks, commands
 
-intents = discord.Intents.default()
-intents.members = True
+intents=discord.Intents.all()
 client = discord.Client(intents=intents)
 token = os.environ['TOKEN']
 
@@ -45,6 +44,20 @@ ng_word_tuple = (
     '消えろ', 'キエロ','きえろ','ｷｴﾛ'
     'ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck'
     'おだまり',
+    'おまえ',
+    'アホ',
+    'ボケ',
+    'カス',
+    'ハゲ',
+    'デブ',
+    'チビ',
+    'クソ',
+    'ぶさいく',
+    'ばばあ',
+    'きもい',
+    'くさい',
+    'のろま',
+    '無能',
 )
 
 need_word_tuple = (
