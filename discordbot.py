@@ -26,7 +26,7 @@ prefix = 'nyan!'
 
 #odaneko_id = 846356637271064627
 odaneko_id = 827903603557007390
-nyanlog_ch_id = 870332072408002600
+nyanlog_ch_id = 870331978770157658
 user_numlog_ch_id = 870332072408002600
 guild_id = 870264494541135882
 
@@ -137,7 +137,7 @@ async def on_message(msg):
             await msg_ch.send(comment)
             
     nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).members ]
-    if msg_author_id in nyan_members_id and msg_ctt != "":
+    if msg_author_id in nyan_members_id and msg_ctt != "" and msg_author_id != odaneko_id:
         if not msg_author_id in nyan_checking_members_id:
             nyan_checking_members_id.append(msg_author_id)
             num_up1 = get_data(get_ch(day_up_id_1))
