@@ -271,9 +271,9 @@ async def on_message(msg):
             
             if cmsg_ch.id == 870266562018426921:
                 if msg_ctt.starts_with('nyan!trade "'):
-                    de = msg._ctt.split('"'):[1]
-                    q = msg._ctt.split('"'):[3]
-                    plus_a = msg._ctt.split('"'):[5]
+                    de = msg._ctt.split('"')[1]
+                    q = msg._ctt.split('"')[3]
+                    plus_a = msg._ctt.split('"')[5]
                     embed = discord.Embed(title=f'{msg.author.name}さんの取引です')
                     embed.add_field(name="**出**", value=de)
                     embed.add_field(name="**求**", value=q)
