@@ -13,7 +13,9 @@ import traceback
 import discord
 from discord.ext import tasks, commands
 
-client = discord.Client(intents=discord.Intents.all())
+intents = discord.Intents.default()
+intents.members = True
+client = discord.Client(intents=intents)
 token = os.environ['TOKEN']
 
 developer = client.get_user(827903603557007390)
