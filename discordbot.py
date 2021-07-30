@@ -4,7 +4,7 @@ import traceback
 
 bot = commands.Bot(command_prefix='nyan!')
 token = os.environ['TOKEN']
-
+print(token)
 
 @bot.event
 async def on_command_error(ctx, error):
