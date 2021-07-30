@@ -128,7 +128,6 @@ async def on_ready():
 flag = True
 
 nyan_checking_members_id = []
-
     
 @client.event
 async def on_message(msg):
