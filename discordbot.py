@@ -209,7 +209,7 @@ async def on_message(msg):
                 check += num_up2
                 await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
         NYAN += check
-        fag = True
+        flag = True
 
     else:
         if msg_ctt.startswith(prefix):
