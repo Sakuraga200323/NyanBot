@@ -80,6 +80,7 @@ async def ch_edit_loop():
         ch_name = f'合計日数：{num_result}'
         await nyanlog_ch.edit(name=ch_name)
         NYAN = 0
+        
     user_num = len(guild.members)
     bot_num = 0
     for i in guild.members:
@@ -88,8 +89,7 @@ async def ch_edit_loop():
             user_num -= 1
     if user_numlog_ch != None:
         if get_data(user_numlog_ch) != user_num:
-            num_result = user_num
-            ch_name = f'総合人数：{num_result}'
+            ch_name = f'総合人数：{user_num}'
             await user_numlog_ch.edit(name=ch_name)
         
 
@@ -168,7 +168,7 @@ async def on_message(msg):
                 check -= 1
             member = guild.get_member(msg.author.id)
             nick = member.nick
-            print(nick)
+            print(member,nick)
             if not "｜NyanCount:" in nick:
                 await member.edit(nick=nick+"｜NyanCount:0")
             count = nick.split("｜NyanCount:")[1]
