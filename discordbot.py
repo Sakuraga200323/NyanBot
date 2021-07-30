@@ -100,7 +100,7 @@ async def on_message(msg):
         num_down = get_data(get_ch(day_down_id))
         check = 0
         temp = 0
-        for j in need_word_tuple:
+        for i in need_word_tuple:
             if not i in msg_ctt:
                 temp += 1
         if temp >= len(need_word_tuple):
