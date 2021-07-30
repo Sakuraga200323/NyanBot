@@ -44,6 +44,12 @@ need_word_tuple = (
     'nya', 'Nya',
     'にゃ', 'ニャ', 'ﾆｬ'
 )
+def check_nyan(text):
+    temp = 0
+    for i in need_word_tuple:
+        if not i in text:
+            temp += 1
+    return temp >= len(need_word_tuple)
 
 day_up_id_1 = 870334047040204880
 day_up_id_2 = 870334141739180082
@@ -103,13 +109,24 @@ async def on_message(msg):
         num_up2 = get_data(get_ch(day_up_id_2))
         num_down = get_data(get_ch(day_down_id))
         check = 0
-        temp = 0
-        for i in need_word_tuple:
-            if not i in msg_ctt:
-                temp += 1
-        if temp >= len(need_word_tuple):
-            check += num_up1
-            await msg_ch.send('あの…**にゃん**が付いて無いです…')
+        if nyan_check(msg_ctt):
+            def check_nyan_try(m):
+                if m.author.id != odaneko_id:
+                    return 0
+                if m.channel.id != msg_ch.id:
+                    return 0
+                if nyan_check(m.content):
+                    return 0
+                reuturn 1
+            try:
+                msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
+            except asyncio.TimeoutError:
+                check += num_up1
+                await msg_ch.send('あの…**にゃん**が付いて無いです…')
+            else:
+                await msg_ch.send('ちゃんと**にゃん**がつけれてえらいです！')
+                await asyncio.sleep(1)
+                await msg_ch.send('いいこいいこ♪')
         else:
             check -= 1
         for i in ng_word_tuple:
