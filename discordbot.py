@@ -27,8 +27,7 @@ prefix = "nyan!"
 
 @tasks.loop(seconds=60)
 async def ch_edit_loop():
-    channel = client.get_channel(CHANNEL_ID)
-    await channel.send('時間だよ')
+    pass
 
 @client.event
 async def on_ready():
