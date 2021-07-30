@@ -121,7 +121,7 @@ async def on_message(msg):
                     return
                 num_result = get_data(nyanlog_ch) + num
                 ch_name = f'合計日数：{num_result}'
-                    nyanlog_ch.edit(name=ch_name)
+                nyanlog_ch.edit(name=ch_name)
                 re_text = f'{num_result}日になったよ!'
                 await msg_ch.semd(re_text)
 
