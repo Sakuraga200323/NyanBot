@@ -213,31 +213,31 @@ async def on_message(msg):
                 num_up = get_data(get_ch(day_down_id))
                 check = 0
                 if not check_nyan(msg_ctt):
-                    def check_nyan_try2(m):
-                        if m.author.id != msg.author.id:
-                            return 0
-                        if m.channel.id != msg_ch.id:
-                            return 0
-                        if not check_nyan(m.content):
-                            return 0
-                        return 1
-                    try:
-                        msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
-                    except asyncio.TimeoutError:
-                        check -= num_down1
-                        re_text_tuple = (
-                            f'**{msg.author}**さん、にゃん！',
-                            f'**{msg.author}**さん猫語忘れてるにゃ～',
-                            f'**{msg.author}**さんは猫語でしゃべらないとにゃ！',
-                            f'**{msg.author}**さん、猫語！',
-                            f'**{msg.author}**さん、あなたそれでも猫にゃ！？',
-                        )
-                        re_text = random.choice(re_text_tuple)
-                        temp = await msg_ch.send(re_text)
-                    else:
-                        temp = await msg_ch.send(f'セーフ！\nあと少し遅かったらマイナスだったにゃん！')
-                    await asyncio.sleep(msg_delete_num)
-                    await temp.delete()
+                    async with channel.typing():
+                        re_text = ""
+                        def check_nyan_try2(m):
+                            if m.author.id != msg.author.id:
+                                return 0
+                            if m.channel.id != msg_ch.id:
+                                return 0
+                            if not check_nyan(m.content):
+                                return 0
+                            return 1
+                        try:
+                            msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
+                        except asyncio.TimeoutError:
+                            check -= num_down1
+                            re_text_tuple = (
+                                f'**{msg.author}**さん、にゃん！',
+                                f'**{msg.author}**さん猫語忘れてるにゃ～',
+                                f'**{msg.author}**さんは猫語でしゃべらないとにゃ！',
+                                f'**{msg.author}**さん、猫語！',
+                                f'**{msg.author}**さん、あなたそれでも猫にゃ！？',
+                            )
+                            re_text = random.choice(re_text_tuple)
+                        else:
+                            re_text = f'セーフ！\nあと少し遅かったらマイナスだったにゃん！'
+                    await msg_ch.send(re_text)
                 else:
                     check += num_up
                 member = guild.get_member(msg.author.id)
