@@ -224,7 +224,7 @@ async def on_message(msg):
                                 return 0
                             return 1
                         try:
-                            msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
+                            msd2 = await client.wait_for("message", timeout=5 check=check_nyan_try2)
                         except asyncio.TimeoutError:
                             check -= num_down1
                             re_text_tuple = (
