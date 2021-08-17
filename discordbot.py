@@ -213,9 +213,6 @@ async def on_message(msg):
                 num_up = get_data(get_ch(day_down_id))
                 check = 0
                 if not check_nyan(msg_ctt):
-                    async with channel.typing():
-                        # simulate something heavy
-                        await asyncio.sleep(msg_delete_num)
                     def check_nyan_try2(m):
                         if m.author.id != msg.author.id:
                             return 0
