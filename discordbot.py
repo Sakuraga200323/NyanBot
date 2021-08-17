@@ -176,7 +176,7 @@ async def on_message(msg):
                 await asyncio.sleep(msg_delete_num)
                 await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
     
-    if not msg_author.bot:
+    if not msg.author.bot:
         msg_count += 1
                 
 
