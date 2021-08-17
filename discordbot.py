@@ -121,7 +121,7 @@ async def on_ready():
     guild = client.get_guild(guild_id)
     nyanlog_ch = guild.get_channel(nyanlog_ch_id)
     user_numlog_ch = guild.get_channel(user_numlog_ch_id)
-    msg_count_ch_id = guild.get_channel(msg_count_ch_id)
+    msg_count_ch = guild.get_channel(msg_count_ch_id)
     
     ch_edit_loop.start()
     print("Nyan!!")
