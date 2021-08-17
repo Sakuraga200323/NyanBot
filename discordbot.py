@@ -227,7 +227,7 @@ async def on_message(msg):
                     try:
                         msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
                     except asyncio.TimeoutError:
-                        check -= num_up1
+                        check -= num_down1
                         re_text_tuple = (
                             f'**{msg.author}**さん、にゃん！',
                             f'**{msg.author}**さん猫語忘れてるにゃ～',
@@ -242,7 +242,7 @@ async def on_message(msg):
                     await asyncio.sleep(msg_delete_num)
                     await temp.delete()
                 else:
-                    check += num_down
+                    check += num_up
                 member = guild.get_member(msg.author.id)
                 nick = member.nick
                 if not nick:
