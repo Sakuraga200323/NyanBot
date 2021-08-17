@@ -24,9 +24,12 @@ JST = timezone(timedelta(hours=+9), 'JST')
 print("Nyan!!")
 prefix = 'nyan!'
 
+msg_delete_num = 5
+
 odaneko_id = 846356637271064627
 #odaneko_id = 827903603557007390
 nyanlog_ch_id = 870331978770157658
+msg_count_ch_id = 877010466109554748
 user_numlog_ch_id = 870332072408002600
 guild_id = 870264494541135882
 
@@ -37,39 +40,25 @@ anti_ch_tuple = (
 )
 
 ng_word_tuple = (
-    '死ね', 'ﾀﾋね','しね',
-    '消えろ', 
-    'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって',
-    '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ',
-    '消えろ', 'キエロ','きえろ','ｷｴﾛ',
-    'ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck',
-    'おだまり',
-    'おまえ',
-    'アホ',
-    'ボケ',
-    'カス',
-    'ハゲ',
-    'デブ',
-    'チビ',
-    'クソ',
-    'ぶさいく',
-    'ばばあ',
-    'きもい',
-    'くさい',
-    'のろま',
-    '無能',
+    '死ね', 'ﾀﾋね','しね','消えろ', 'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって',
+    '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ','消えろ', 'キエロ','きえろ','ｷｴﾛ','ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck',
+    'おだまり','おまえ','アホ','ボケ','カス','ハゲ','デブ','チビ','クソ','ぶさいく','ばばあ','きもい','くさい','のろま','無能',
 )
 
 need_word_tuple = (
     'nya', 'Nya', 'NYA',
     'にゃ', 'ニャ', 'ﾆｬ'
 )
+
+damare_count = 0
+damarer = []
+
 def check_nyan(text):
     temp = 0
     for i in need_word_tuple:
         if not i in text:
             temp += 1
-    return temp >= len(need_word_tuple)
+    return temp < len(need_word_tuple)
 
 day_up_id_1 = 870334047040204880
 day_up_id_2 = 870334141739180082
@@ -84,15 +73,19 @@ def get_data(ch):
     return num
 
 NYAN = 0
+msg_count = 0
 
 odaneko = None
 guild = None
 nyanlog_ch = None
 user_numlog_ch = None
+msg_count_ch = None
 
 @tasks.loop(seconds=10)
 async def ch_edit_loop():
     global NYAN
+    global msg_count
+    """
     num_result = get_data(nyanlog_ch) + NYAN
     if NYAN != 0:
         print(NYAN)
@@ -100,6 +93,13 @@ async def ch_edit_loop():
         ch_name = f'合計日数：{num_result}'
         await nyanlog_ch.edit(name=ch_name)
         NYAN = 0
+    """
+    if msg_count > 0:
+        num_result = get_data(msg_count_ch) + msg_count
+        ch_name = f'総発言数：{num_result}'
+        await msg_count_ch.edit(name=ch_name)
+        msg_count = 0
+        
         
     user_num = len(guild.members)
     bot_num = 0
@@ -116,11 +116,12 @@ async def ch_edit_loop():
 
 @client.event
 async def on_ready():
-    global odakenko, guild, nyanlog_ch, user_numlog_ch
+    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch
     odaneko = client.get_user(odaneko_id)
     guild = client.get_guild(guild_id)
     nyanlog_ch = guild.get_channel(nyanlog_ch_id)
     user_numlog_ch = guild.get_channel(user_numlog_ch_id)
+    msg_count_ch_id = guild.get_channel(msg_count_ch_id)
     
     ch_edit_loop.start()
     print("Nyan!!")
@@ -138,6 +139,9 @@ async def on_message(msg):
     global odaneko_id
     global nyan_checking_members_id
     global master_flag
+    global damare_count
+    global damarer
+    global msg_count
     
     guild = msg.guild
     
@@ -147,14 +151,38 @@ async def on_message(msg):
     
     if msg.author.id == 827903603557007390:
         if msg_ctt == "Nyan、ちょっとだまって":
+            async with channel.typing():
+                # simulate something heavy
+                await asyncio.sleep(2)
             await msg_ch.send('にゃぁ…')
             master_flag = False
         if msg_ctt == "Nyan、話していいよ":
+            async with channel.typing():
+                # simulate something heavy
+                await asyncio.sleep(2)
             await msg_ch.send('にゃぁ！！')
             master_flag = True
+    else:
+        if msg_ctt == "nyan!stop":
+            if msg.author.id in damarer:
+            async with channel.typing():
+                # simulate something heavy
+                await asyncio.sleep(msg_delete_num3)
+                await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
+            else:
+                damarer.append(msg.author.id)
+            async with channel.typing():
+                # simulate something heavy
+                await asyncio.sleep(msg_delete_num)
+                await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
+    
+    if not msg_author.bot:
+        msg_count += 1
+                
 
     if master_flag == True:
         if (not msg.author.id in (odaneko_id, client.user.id) and not msg.author.bot):
+            """
             for i in ng_word_tuple:
                 if i in msg_ctt:
                     re_text_tuple = (
@@ -165,6 +193,7 @@ async def on_message(msg):
                     )
                     re_text = random.choice(re_text_tuple)
                     temp = await msg_ch.send(re_text)
+            """
 
         if (msg_ctt.startswith(prefix)):
             command = msg_ctt.split(prefix)[1]
@@ -175,26 +204,29 @@ async def on_message(msg):
                 await msg_ch.send(comment)
 
         nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).members ]
-        if msg_author_id in nyan_members_id and msg_ctt != "" and msg_author_id != odaneko_id:
+        if msg_author_id in nyan_members_id and msg_ctt != "":
             if not msg_author_id in nyan_checking_members_id:
                 nyan_checking_members_id.append(msg_author_id)
-                num_up1 = get_data(get_ch(day_up_id_1))
-                num_up2 = get_data(get_ch(day_up_id_2))
-                num_down = get_data(get_ch(day_down_id))
+                num_down1 = get_data(get_ch(day_up_id_1))
+                num_down2 = get_data(get_ch(day_up_id_2))
+                num_up = get_data(get_ch(day_down_id))
                 check = 0
-                if check_nyan(msg_ctt):
+                if not check_nyan(msg_ctt):
+                    async with channel.typing():
+                        # simulate something heavy
+                        await asyncio.sleep(msg_delete_num)
                     def check_nyan_try2(m):
                         if m.author.id != msg.author.id:
                             return 0
                         if m.channel.id != msg_ch.id:
                             return 0
-                        if check_nyan(m.content):
+                        if not check_nyan(m.content):
                             return 0
                         return 1
                     try:
                         msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try2)
                     except asyncio.TimeoutError:
-                        check += num_up1
+                        check -= num_up1
                         re_text_tuple = (
                             f'**{msg.author}**さん、にゃん！',
                             f'**{msg.author}**さん猫語忘れてるにゃ～',
@@ -205,11 +237,11 @@ async def on_message(msg):
                         re_text = random.choice(re_text_tuple)
                         temp = await msg_ch.send(re_text)
                     else:
-                        temp = await msg_ch.send(f'セーフ！\nあと少し遅かったら加算だったにゃん！')
-                    await asyncio.sleep(3)
+                        temp = await msg_ch.send(f'セーフ！\nあと少し遅かったらマイナスだったにゃん！')
+                    await asyncio.sleep(msg_delete_num)
                     await temp.delete()
                 else:
-                    check -= 1
+                    check += num_down
                 member = guild.get_member(msg.author.id)
                 nick = member.nick
                 if not nick:
@@ -229,46 +261,9 @@ async def on_message(msg):
 
 
 
-        if msg.author.id == odaneko_id and flag == True and msg_ctt != "":
-            if msg.channel.id in anti_ch_tuple:
-                return
-            flag = False
-            print(f'メッセージを取得：{msg_ctt}')
-            num_up1 = get_data(get_ch(day_up_id_1))
-            num_up2 = get_data(get_ch(day_up_id_2))
-            num_down = get_data(get_ch(day_down_id))
-            check = 0
-            if check_nyan(msg_ctt):
 
-                def check_nyan_try(m):
-                    if m.author.id != odaneko_id:
-                        return 0
-                    if m.channel.id != msg_ch.id:
-                        return 0
-                    if check_nyan(m.content):
-                        return 0
-                    return 1
-                try:
-                    msd2 = await client.wait_for("message", timeout=3, check=check_nyan_try)
-                except asyncio.TimeoutError:
-                    check += num_up1
-                    temp = await msg_ch.send('あの…**にゃん**が付いて無いです…')
-                else:
-                    temp = await msg_ch.send('せーふにゃん！！')
-            else:
-                check -= 1
-            for i in ng_word_tuple:
-                if i in msg_ctt:
-                    check += num_up2
-                    temp = await msg_ch.send(f'**{i}**なんて言う人…嫌いです…！')
-            NYAN += check
-            flag = True
-            await asyncio.sleep(3)
-            if temp:
-                await temp.delete()
+        if msg_ctt.startswith(prefix):
 
-        else:
-            
             if msg_ch.id == 870266562018426921:
                 if msg_ctt.startswith('nyan!trade "'):
                     de = msg_ctt.split('"')[1]
@@ -278,37 +273,11 @@ async def on_message(msg):
                     embed.add_field(name="**出**", value=de)
                     embed.add_field(name="**求**", value=q)
                     embed.add_field(name="**追記**", value=plus_a)
+                    async with channel.typing():
+                        # simulate something heavy
+                        await asyncio.sleep(2)
                     await msg_ch.send(embed=embed)
                     await asyncio.sleep(5)
                     await msg.delete()
-            
-            
-            if msg_ctt.startswith(prefix):
-                cmd1 = prefix+'add_count '
-                if msg_ctt.startswith(cmd1):
-                    num = int(msg_ctt.split(cmd1)[1])
-                    if num <= 365:
-                        re_text = '増やす量が多すぎるよォ…365より小さくしてね'
-                        await msg_ch.send(re_text)
-                        return
-                    num_result = get_data(nyanlog_ch) + num
-                    ch_name = f'合計日数：{num_result}'
-                    await nyanlog_ch.edit(name=ch_name)
-                    re_text = f'{num_result}日になったよ!'
-                    await msg_ch.semd(re_text)
-
-                cmd2 = prefix+'set_user '
-                if msg_ctt.startswith(cmd2):
-                    re_text = ""
-                    if (msg_ctt.split(cmd2)[1]).isdigit():
-                        id = int(msg_ctt.split(cmd2)[1])
-                        user = guild.get_member(id)
-                        if user:
-                            re_text = f'{user.mention}をみはるにゃん(=^・・^=)'
-                            odaineko_id = id
-                        else:
-                            re_text = f'**{id}**って人が見つからなかったにゃん…'
-                    else:
-                        re_text = f'**{msg_ctt.split(cmd2)[1]}**は絶対USER_IDじゃないにゃん…\n`nyan!set_user USER_ID`でセットできるにゃん！'
 
 client.run(token)
