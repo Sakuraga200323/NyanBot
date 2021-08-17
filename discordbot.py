@@ -147,6 +147,7 @@ async def on_message(msg):
     
     msg_ctt = msg.content
     msg_ch = msg.channel
+    channel = msg_ch
     msg_author_id = msg.author.id
     
     if msg.author.id == 827903603557007390:
