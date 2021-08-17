@@ -165,9 +165,9 @@ async def on_message(msg):
     else:
         if msg_ctt == "nyan!stop":
             if msg.author.id in damarer:
-            async with channel.typing():
-                # simulate something heavy
-                await asyncio.sleep(msg_delete_num3)
+                async with channel.typing():
+                    # simulate something heavy
+                    await asyncio.sleep(msg_delete_num3)
                 await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
             else:
                 damarer.append(msg.author.id)
