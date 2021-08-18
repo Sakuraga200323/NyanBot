@@ -164,18 +164,18 @@ async def on_message(msg):
             await msg_ch.send('にゃぁ！！')
             master_flag = True
     else:
-        if msg_ctt == "nyan!stop":
+        if msg_ctt == "nyan! stop":
             if msg.author.id in damarer:
                 async with channel.typing():
                     # simulate something heavy
                     await asyncio.sleep(msg_delete_num3)
-                await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
+                    await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
             else:
                 damarer.append(msg.author.id)
-            async with channel.typing():
-                # simulate something heavy
-                await asyncio.sleep(msg_delete_num)
-                await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
+                async with channel.typing():
+                    # simulate something heavy
+                    await asyncio.sleep(msg_delete_num)
+                    await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
     
     if not msg.author.bot:
         msg_count += 1
@@ -237,7 +237,7 @@ async def on_message(msg):
                             re_text = random.choice(re_text_tuple)
                         else:
                             re_text = f'セーフ！\nあと少し遅かったらマイナスだったにゃん！'
-                    await msg_ch.send(re_text)
+                    await msg_ch.send(re_text,delete_after=msg_delete_num)
                 else:
                     check += num_up
                 member = guild.get_member(msg.author.id)
