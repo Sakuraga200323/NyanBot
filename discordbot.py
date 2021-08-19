@@ -154,6 +154,7 @@ flag2 = True
 nyan_checking_members_id = []
 
 talk = Talk()
+last_word = ''
 
 def check_per(int):
     num = random.uniform(0, 100)
@@ -170,7 +171,7 @@ async def on_message(msg):
     global damare_count
     global damarer
     global msg_count
-    global flag2
+    global flag2, last_word
     
     guild = msg.guild
     
@@ -307,8 +308,14 @@ async def on_message(msg):
         async with channel.typing():
             flag2 = False
             res = talk.get(msg_ctt)
-            await asyncio.sleep(int(len(res)/3))
-            await msg_ch.send(res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","にゃ?"))
+            res = res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","にゃ?"))
+            res = res.replace('私','にゃー').replace('あなた','ご主人様')
+            if last_word != res:
+                await asyncio.sleep(int(len(res)/4))
+                await msg_ch.send(res)
+                last_word = res
+            else:
+                pass
             flag2 = True
             
 
