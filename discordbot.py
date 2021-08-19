@@ -170,6 +170,7 @@ async def on_message(msg):
     global damare_count
     global damarer
     global msg_count
+    global flag2
     
     guild = msg.guild
     
@@ -301,10 +302,14 @@ async def on_message(msg):
                 nyan_checking_members_id.remove(msg_author_id)
 
     if msg_ctt != "" and check_per(80) and not msg.author.id == client.user.id:
+        if not flag2:
+            return
         async with channel.typing():
+            flag2 = False
             res = talk.get(msg_ctt)
             await asyncio.sleep(int(len(res)/3))
-            await msg_ch.send(res.replace("ですね","にゃ").replace("ね","にゃ"))
+            await msg_ch.send(res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","にゃ?"))
+            flag2 = True
             
 
 
