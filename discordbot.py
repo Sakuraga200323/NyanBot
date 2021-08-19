@@ -164,7 +164,7 @@ async def on_message(msg):
             await msg_ch.send('にゃぁ！！')
             master_flag = True
 
-    if msg_ctt == "nyan! stop":
+    if msg_ctt == "nyan! stop" and damare_count < 3:
         if msg.author.id in damarer:
             async with channel.typing():
                 # simulate something heavy
@@ -178,7 +178,7 @@ async def on_message(msg):
                     # simulate something heavy
                     await asyncio.sleep(msg_delete_num)
                     await msg_ch.send(f'{msg.author.mention}さんの黙れ申請を受理したにゃ\nあと{3-len(damarer)}人でだまるにゃ')
-                else:
+                elif damare_count == 3:
                     await asyncio.sleep(msg_delete_num)
                     await msg_ch.send(f'3人に黙れって言われたから、明日まで黙るにゃ')
                     master_flag == False
