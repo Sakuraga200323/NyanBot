@@ -153,7 +153,7 @@ flag2 = True
 
 nyan_checking_members_id = []
 
-talk = TalkAi()
+talk = Talk()
 
 def check_per(int):
     num = random.uniform(0, 100)
@@ -301,7 +301,7 @@ async def on_message(msg):
                 nyan_checking_members_id.remove(msg_author_id)
 
     else:
-        if msg_ctt != "" and check_per(10):
+        if msg_ctt != "" and check_per(20):
             res = talk.get()
             async with channel.typing():
                 await asyncio.sleep(int(len(les)/2))
