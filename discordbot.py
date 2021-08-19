@@ -61,9 +61,9 @@ anti_ch_tuple = (
 )
 
 ng_word_tuple = (
-    '死ね', 'ﾀﾋね','しね','消えろ', 'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって',
-    '帰れ', 'かえれ', 'カエレ', 'ｶｴﾚ','消えろ', 'キエロ','きえろ','ｷｴﾛ','ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck',
-    'おだまり','おまえ','アホ','ボケ','カス','ハゲ','デブ','チビ','クソ','ぶさいく','ばばあ','きもい','くさい','のろま','無能',
+    '死ね', 'ﾀﾋね','消えろ', 'だまれ', '黙れ', 'ダマレ', 'ﾀﾞﾏﾚ', 'だまって',
+    '消えろ', 'キエロ','きえろ','ｷｴﾛ','ふぁっく', 'ファック', 'ﾌｧｯｸ', 'Fuck', 'FUCK', 'fuck',
+    'おだまり','おまえ','アホ','ボケ','カス','ハゲ','デブ','チビ','クソ','ぶさいく','ばばあ','きもい','くさい','のろま','無能'
 )
 
 need_word_tuple = (
@@ -155,6 +155,8 @@ nyan_checking_members_id = []
 
 talk = Talk()
 last_word = ''
+goodid_list = {}
+badid_list = []
 
 def check_per(int):
     num = random.uniform(0, 100)
@@ -303,6 +305,8 @@ async def on_message(msg):
                 nyan_checking_members_id.remove(msg_author_id)
 
     if msg_ctt != "" and check_per(80) and not msg.author.id == client.user.id:
+        if not( msg.guild == None or msg_ch.id == 870264545338347580):
+            return
         if not flag2:
             return
         async with channel.typing():
@@ -310,10 +314,16 @@ async def on_message(msg):
             res = talk.get(msg_ctt)
             res = res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","かにゃん?")
             res = res.replace('私','にゃー').replace('あなた','ご主人様').replace('な','にゃ')
-            if check_per(5):
-                res += '♡'
+            res = res.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
             if check_per(5):
                 res += '…///'
+            if check_per(5):
+                res += '♡'
+            if check_per(5) and not '/' in res and not '♡' in:
+                res += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
+            if check_per(50):
+                if res == 'ご主人様は良くするんですかにゃん?':
+                    res = '(´・ω・｀)'
             if last_word != res:
                 await asyncio.sleep(int(len(res)/4))
                 await msg_ch.send(res)
