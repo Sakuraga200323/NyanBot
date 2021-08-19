@@ -211,7 +211,7 @@ async def on_message(msg):
         if (msg_ctt.startswith(prefix)):
             command = msg_ctt.split(prefix)[1]
 
-            if (command == "ping"):
+            if (command == " ping"):
                 re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
                 comment = random.choice(list(re_tuple))
                 await msg_ch.send(comment)
