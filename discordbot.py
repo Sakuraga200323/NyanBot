@@ -300,12 +300,11 @@ async def on_message(msg):
                 await member.edit(nick=nick_left+f'｜NyanCount:{count}')
                 nyan_checking_members_id.remove(msg_author_id)
 
-    else:
-        if msg_ctt != "" and check_per(40):
-            async with channel.typing():
-                res = talk.get(msg_ctt)
-                await asyncio.sleep(int(len(res)/3))
-                await msg_ch.send(res)
+    if msg_ctt != "" and check_per(60):
+        async with channel.typing():
+            res = talk.get(msg_ctt)
+            await asyncio.sleep(int(len(res)/3))
+            await msg_ch.send(res)
             
 
 
