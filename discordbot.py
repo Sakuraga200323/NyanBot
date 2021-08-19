@@ -365,7 +365,4 @@ async def on_message(msg):
                     await asyncio.sleep(5)
                     await msg.delete()
 
-        if msg.author.id == 399432235813699584:
-            if 'sex' in msg_ctt:
-                await msg.delete()
 client.run(token)
