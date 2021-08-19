@@ -169,13 +169,13 @@ async def on_message(msg):
             async with channel.typing():
                 # simulate something heavy
                 await asyncio.sleep(msg_delete_num3)
-                await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
+                await msg_ch.send(f'{msg.author.mention}さんはすでに黙れ申請をしてるにゃ')
         else:
             damarer.append(msg.author.id)
             async with channel.typing():
                 # simulate something heavy
                 await asyncio.sleep(msg_delete_num)
-                await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
+                await msg_ch.send(f'{msg.author.mention}さんの黙れ申請を受理したにゃ\nあと')
     
     if not msg.author.bot:
         msg_count += 1
