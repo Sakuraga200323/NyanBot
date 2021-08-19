@@ -128,6 +128,7 @@ async def on_ready():
     
 flag = True
 master_flag = True
+flag2 = True
 
 nyan_checking_members_id = []
 
@@ -186,7 +187,7 @@ async def on_message(msg):
                         'みんなにゃーのこときらいにゃのにゃ…'
                     )
                     await msg_ch.send(random.choice(msg_list))
-                    master_flag == False
+                    master_flag = False
                     
     
     if not msg.author.bot:
