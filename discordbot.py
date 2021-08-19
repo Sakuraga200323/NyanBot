@@ -177,10 +177,8 @@ async def on_message(msg):
                 await msg_ch.send(f'{msg.author.mention}さんの黙れ申請を受理したにゃ')
                 if damare_count < 3:
                     # simulate something heavy
-                    await asyncio.sleep(msg_delete_num)
-                    await msg_ch.send('あと{3-len(damarer)}人でだまるにゃ…')
+                    await msg_ch.send(f'あと{3-len(damarer)}人でだまるにゃ…')
                 elif damare_count == 3:
-                    await asyncio.sleep(msg_delete_num)
                     msg_list = (
                         'みんなそんなに黙ってほしーにゃか…',
                         '3人に黙れって言われたから、明日まで黙るにゃ',
