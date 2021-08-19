@@ -163,19 +163,19 @@ async def on_message(msg):
                 await asyncio.sleep(2)
             await msg_ch.send('にゃぁ！！')
             master_flag = True
-    else:
-        if msg_ctt == "nyan! stop":
-            if msg.author.id in damarer:
-                async with channel.typing():
-                    # simulate something heavy
-                    await asyncio.sleep(msg_delete_num3)
-                    await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
-            else:
-                damarer.append(msg.author.id)
-                async with channel.typing():
-                    # simulate something heavy
-                    await asyncio.sleep(msg_delete_num)
-                    await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
+
+    if msg_ctt == "nyan! stop":
+        if msg.author.id in damarer:
+            async with channel.typing():
+                # simulate something heavy
+                await asyncio.sleep(msg_delete_num3)
+                await msg_ch.send(f'{mas.author.mention}さんはすでに黙れ申請をしてるにゃ')
+        else:
+            damarer.append(msg.author.id)
+            async with channel.typing():
+                # simulate something heavy
+                await asyncio.sleep(msg_delete_num)
+                await msg_ch.send(f'{mas.author.mention}さんの黙れ申請を受理したにゃ\nあと')
     
     if not msg.author.bot:
         msg_count += 1
