@@ -134,6 +134,8 @@ async def ch_edit_loop():
             await user_numlog_ch.edit(name=ch_name)
     else:
         print("人数記録チャンネルがない！")
+    member = guild.get_member(client.user.id)
+    await member.edit(nick='にゃー!')
 
 @client.event
 async def on_ready():
@@ -156,13 +158,18 @@ nyan_checking_members_id = []
 talk = Talk()
 last_word = ''
 goodid_list = {}
-badid_list = []
+badid_li
 
 def check_per(int):
     num = random.uniform(0, 100)
     return num <= int
-    
-    
+
+def check_samenum(a,n):
+    num = 0
+    for i in n:
+        if i == a:
+            num =+ 1
+    return num
 @client.event
 async def on_message(msg):
     global NYAN
@@ -305,6 +312,8 @@ async def on_message(msg):
                 nyan_checking_members_id.remove(msg_author_id)
 
     if msg_ctt != "" and check_per(90) and not msg.author.id == client.user.id:
+        
+       
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
         if not flag2:
@@ -321,10 +330,15 @@ async def on_message(msg):
                 res += '♡'
             if check_per(5) and not '/' in res and not '♡' in res:
                 res += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
-            if check_per(50):
+            if check_per(100):
                 if res == 'ご主人様は良くするんですかにゃん?':
                     res = '(´・ω・｀)'
+            if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
+                res = f'時計買ったので分かりますにゃ!!  **{datetime.now.hour}**時!!'
             if last_word != res:
+                res2 = ''
+                if check_per(5):
+                    res2 = res.replace(random.choice(list('あいうえおかいくけこさしすせそたち')
                 await asyncio.sleep(int(len(res)/4))
                 await msg_ch.send(res)
                 last_word = res
@@ -354,4 +368,7 @@ async def on_message(msg):
                     await asyncio.sleep(5)
                     await msg.delete()
 
+        if msg.author.id == 399432235813699584:
+            if 'sex' in msg_ctt:
+                await msg.delete()
 client.run(token)
