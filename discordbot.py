@@ -157,7 +157,7 @@ nyan_checking_members_id = []
 
 talk = Talk()
 last_word = ''
-feeling_list = {}
+feeling_dict = {}
 
 def check_per(int):
     num = random.uniform(0, 100)
@@ -179,7 +179,7 @@ async def on_message(msg):
     global damare_count
     global damarer
     global msg_count
-    global flag2, last_word
+    global flag2, last_word, feeling_dict
     
     guild = msg.guild
     
@@ -310,7 +310,7 @@ async def on_message(msg):
                 await member.edit(nick=nick_left+f'｜NyanCount:{count}')
                 nyan_checking_members_id.remove(msg_author_id)
 
-    if msg_ctt != "" and check_per(90) and not msg.author.id == client.user.id:
+    if (msg_ctt != "" ,check_per(90), msg.author.id) == (True, True, client.user.id):
         
        
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
@@ -333,7 +333,7 @@ async def on_message(msg):
                 if res == 'ご主人様は良くするんですかにゃん?':
                     res = '(´・ω・｀)'
             if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
-                res = f'時計買ったので分かりますにゃ!!  **{datetime.now.hour}**時!!'
+                res = f'時計買ったので分かります、**{datetime.now.hour}**時にゃ'
             if last_word != res:
                 await asyncio.sleep(int(len(res)/4))
                 await msg_ch.send(res)
