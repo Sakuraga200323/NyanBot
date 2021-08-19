@@ -127,10 +127,10 @@ async def on_ready():
     print("Nyan!!")
     
 flag = True
+master_flag = True
 
 nyan_checking_members_id = []
 
-master_flag = True
     
 @client.event
 async def on_message(msg):
@@ -177,7 +177,7 @@ async def on_message(msg):
                 await msg_ch.send(f'{msg.author.mention}さんの黙れ申請を受理したにゃ')
                 if damare_count < 3:
                     # simulate something heavy
-                    await msg_ch.send(f'あと{3-len(damarer)}人でだまるにゃ…')
+                    await msg_ch.send(f'あと{3-damare_count)}人でだまるにゃ…')
                 elif damare_count == 3:
                     msg_list = (
                         'みんなそんなに黙ってほしーにゃか…',
