@@ -157,8 +157,7 @@ nyan_checking_members_id = []
 
 talk = Talk()
 last_word = ''
-goodid_list = {}
-badid_li
+feeling_list = {}
 
 def check_per(int):
     num = random.uniform(0, 100)
