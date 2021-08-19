@@ -304,7 +304,7 @@ async def on_message(msg):
         async with channel.typing():
             res = talk.get(msg_ctt)
             await asyncio.sleep(int(len(res)/3))
-            await msg_ch.send(res)
+            await msg_ch.send(res.replace("ね","にゃ"))
             
 
 
