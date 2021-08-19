@@ -308,7 +308,7 @@ async def on_message(msg):
         async with channel.typing():
             flag2 = False
             res = talk.get(msg_ctt)
-            res = res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","にゃ?"))
+            res = res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","にゃ?")
             res = res.replace('私','にゃー').replace('あなた','ご主人様')
             if last_word != res:
                 await asyncio.sleep(int(len(res)/4))
