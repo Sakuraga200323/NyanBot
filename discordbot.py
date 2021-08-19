@@ -12,6 +12,27 @@ import traceback
 import discord
 from discord.ext import tasks, commands
 
+
+import requests
+import json
+
+class Talk:
+    def __init__(self):
+        self.key = os.environ['TALKAPI-KEY']
+        self.api = 'https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk'
+
+    def get(self,talking):
+        url = self.api
+        r = requests.post(url,{'apikey':self.key,'query':talking})
+        data = json.loads(r.text)
+        if data['status'] == 0:
+            t = data['results']
+            ret = t[0]['reply']
+        else:
+            ret = '…にゃん'
+        return ret
+
+
 intents=discord.Intents.all()
 client = discord.Client(intents=intents)
 token = os.environ['TOKEN']
@@ -132,6 +153,12 @@ flag2 = True
 
 nyan_checking_members_id = []
 
+talk = TalkAi()
+
+def check_per(int):
+    num = random.uniform(0, 100)
+    return num <= int
+    
     
 @client.event
 async def on_message(msg):
@@ -273,6 +300,13 @@ async def on_message(msg):
                 await member.edit(nick=nick_left+f'｜NyanCount:{count}')
                 nyan_checking_members_id.remove(msg_author_id)
 
+    else:
+        if msg_ctt != "" and check_per(10):
+            res = talk.get()
+            async with channel.typing():
+                await asyncio.sleep(int(len(les)/2))
+                await msg_ch.send(res)
+            
 
 
 
