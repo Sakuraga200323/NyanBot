@@ -304,7 +304,7 @@ async def on_message(msg):
                 await member.edit(nick=nick_left+f'｜NyanCount:{count}')
                 nyan_checking_members_id.remove(msg_author_id)
 
-    if msg_ctt != "" and check_per(80) and not msg.author.id == client.user.id:
+    if msg_ctt != "" and check_per(90) and not msg.author.id == client.user.id:
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
         if not flag2:
@@ -319,7 +319,7 @@ async def on_message(msg):
                 res += '…///'
             if check_per(5):
                 res += '♡'
-            if check_per(5) and not '/' in res and not '♡' in:
+            if check_per(5) and not '/' in res and not '♡' in res:
                 res += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
             if check_per(50):
                 if res == 'ご主人様は良くするんですかにゃん?':
