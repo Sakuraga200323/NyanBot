@@ -302,8 +302,8 @@ async def on_message(msg):
 
     else:
         if msg_ctt != "" and check_per(20):
-            res = talk.get()
             async with channel.typing():
+                res = talk.get(msg_ctt)
                 await asyncio.sleep(int(len(res)/2))
                 await msg_ch.send(res)
             
