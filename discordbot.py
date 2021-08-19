@@ -336,9 +336,6 @@ async def on_message(msg):
             if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
                 res = f'時計買ったので分かりますにゃ!!  **{datetime.now.hour}**時!!'
             if last_word != res:
-                res2 = ''
-                if check_per(5):
-                    res2 = res.replace(random.choice(list('あいうえおかいくけこさしすせそたち')
                 await asyncio.sleep(int(len(res)/4))
                 await msg_ch.send(res)
                 last_word = res
