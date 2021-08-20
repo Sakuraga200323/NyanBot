@@ -68,7 +68,7 @@ ng_word_tuple = (
 
 g_word_tuple = (
     "可愛い","かわいい","カワイイ","ｶﾜｲｲ",
-    "好き","すき","スキ","ｽｷ",
+    "好き","すき","スキ","ｽｷ","愛してる","アイシテル","ｱｲｼﾃﾙ","あいしてる",
     "頑張","がんば","ガンバ","ｶﾞﾝﾊ",
     "流石","さすが","サスガ","ｻｽｶﾞ",
     "優し","やさしい","ヤサシイ","ﾔｻｼｲ",
@@ -142,7 +142,7 @@ async def ch_edit_loop():
     else:
         print("人数記録チャンネルがない！")
     member = guild.get_member(client.user.id)
-    await member.edit(nick='雪猫')
+    await member.edit(nick='汎用自己学習型会話AI ≪雪猫≫')
 
 @client.event
 async def on_ready():
