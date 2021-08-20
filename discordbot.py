@@ -363,6 +363,7 @@ async def on_message(msg):
             feeling_dict[msg.author.id] = max(min(feeling_dict[msg.author.id],10),-10)
             res = talk.get(msg_ctt)
             feeling_num = feeling_dict[msg.author.id]
+            print(res)
             if feeling_num >= 0:
                 if msg.author.id == 827903603557007390:
                     res = res.replace("あなた", "ご主人様")
