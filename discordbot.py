@@ -191,14 +191,14 @@ def nyan_translator2(str):
     str = str.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
     return
 
-def nyan_translator3(str):
+def nyan_translator3(str, user):
     if check_per(5):
         str += '…///'
     if check_per(5):
         str += '♡'
     if check_per(5) and not '/' in str and not '♡' in str:
         str += '♪'
-    str = str.replace('あなた','ご主人様')
+    str = str.replace('あなた', user.name+"さん")
     return str
     
 @client.event
@@ -364,6 +364,8 @@ async def on_message(msg):
             res = talk.get(msg_ctt)
             feeling_num = feeling_dict[msg.author.id]
             if feeling_num >= 0:
+                if msg.author.id == 827903603557007390:
+                    res = res.replace("あなた", "ご主人様")
                 if feeling_num >= 0:
                     res = nyan_translator(res)
                 if feeling_num >= 2:
