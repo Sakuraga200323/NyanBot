@@ -363,7 +363,8 @@ async def on_message(msg):
             feeling_dict[msg.author.id] = max(min(feeling_dict[msg.author.id],10),-10)
             res = talk.get(msg_ctt)
             feeling_num = feeling_dict[msg.author.id]
-            print(res)
+            print("好感度: "+msg.author.name+"｜"+feeling_dict[msg.author.id])
+            print("be: "+res)
             if feeling_num >= 0:
                 if msg.author.id == 827903603557007390:
                     res = res.replace("あなた", "ご主人様")
@@ -377,7 +378,7 @@ async def on_message(msg):
                     res = '(´・ω・｀)'
                 if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
                     res = f'時計買ったので分かるにゃ、**{datetime.now().hours}**時にゃ'
-                print(res)
+                print("af: "+res)
                 if last_word != res:
                     await asyncio.sleep(int(len(res)/4))
                     await msg_ch.send(f">{msg.author.name}\n"+res)
