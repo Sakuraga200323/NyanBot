@@ -351,8 +351,9 @@ async def on_message(msg):
                 nyan_checking_members_id.remove(msg_author_id)
 
 
-    if (msg_ctt != "" ,check_per(90), msg.author.id) != (False, False, client.user.id):
-       
+    if (msg_ctt != "" ,check_per(90)) == (True, True):
+        if msg.author.id == client.user.id:
+            return
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
         if not flag2:
