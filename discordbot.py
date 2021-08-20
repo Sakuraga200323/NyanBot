@@ -184,12 +184,24 @@ def nyan_translator(str):
     return str
 
 def nyan_translator2(str):
-    str = str.replace("ですね","にゃ")
-    str = str.replace("ね","にゃ")
-    str = str.replace("か?","かにゃん?")
-    str = str.replace('私','にゃー')
-    str = str.replace('な','にゃ')
-    str = str.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
+    replace_tuple = (
+        ("ですね","にゃ"),
+        ("ですよ","にゃ"),
+        ("です","にゃ"),
+        ("ます","ますにゃ"),
+        ("ました","ましたにゃん"),
+        ("ね","にゃ"),
+        ("か?","かにゃん?"),
+        ('私','にゃー'),
+        ('な','にゃ'),
+        ('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん'])),
+        ("下さい","下さいにゃ"),
+        ("ください","くださいにゃ"),
+        ("わかりません","わかりませんにゃ……"),
+        ("行","イ"),
+    )
+    for i in replace_tuple:
+        str = str.replace(i[0],i[1])
     print("B"+str)
     return str
 
@@ -200,6 +212,10 @@ def nyan_translator3(str, user):
         str += '♡'
     if check_per(5) and not '/' in str and not '♡' in str:
         str += '♪'
+    if check_per(5) and not '/' in str and not '♡' in str:
+        str += '!'
+    if check_per(50):
+        str += str.replace("秘密"," ひ・み・つ ")
     str = str.replace('あなた', user.name+"さん")
     print("C"+str)
     return str
