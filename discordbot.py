@@ -66,6 +66,22 @@ ng_word_tuple = (
     'おだまり','おまえ','アホ','ボケ','カス','ハゲ','デブ','チビ','クソ','ぶさいく','ばばあ','きもい','くさい','のろま','無能'
 )
 
+g_word_tuple = (
+    "可愛い","かわいい","カワイイ","ｶﾜｲｲ",
+    "好き","すき","スキ","ｽｷ",
+    "頑張","がんば","ガンバ","ｶﾞﾝﾊ",
+    "流石","さすが","サスガ","ｻｽｶﾞ",
+    "優し","やさしい","ヤサシイ","ﾔｻｼｲ",
+    "楽し","たのし","タノシ","ﾀﾉｼ",
+    "癒","美人","おしゃれ",
+    "凄","すご","スゴ","ｽｺﾞ",
+    "尊敬する","そんけいする","ソンケイする","ｿﾝｹｲする",
+    "ありがとう","有難う","アリガトウ","ｱﾘｶﾞﾄｳ",
+    "おはよう","こんにちは","こんばんは","お早う",
+    "オハヨウ","ｵﾊﾖｳ","今日は","ｺﾝﾆﾁﾊ","コンニチハ",
+    "こんばんは","今晩は","コンバンハ","嬉しい",
+)
+
 need_word_tuple = (
     'nya', 'Nya', 'NYA',
     'にゃ', 'ニャ', 'ﾆｬ'
@@ -169,6 +185,31 @@ def check_samenum(a,n):
         if i == a:
             num =+ 1
     return num
+
+def nyan_translator(str):
+    if check_per(5) and not '/' in str and not '♡' in str:
+        str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
+    return str
+
+def nyan_translator2(str):
+    str = str.replace("ですね","にゃ")
+    str = str.replace("ね","にゃ")
+    str = str.replace("か?","かにゃん?")
+    str = res.replace('私','にゃー')
+    str = str.replace('な','にゃ')
+    str = str.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
+    return
+
+def nyan_translator3(str):
+    if check_per(5):
+        str += '…///'
+    if check_per(5):
+        str += '♡'
+    if check_per(5) and not '/' in str and not '♡' in str:
+        str += '♪'
+    str = str.replace('あなた','ご主人様')
+    return str
+    
 @client.event
 async def on_message(msg):
     global NYAN
@@ -187,7 +228,10 @@ async def on_message(msg):
     msg_ch = msg.channel
     channel = msg_ch
     msg_author_id = msg.author.id
-    
+
+    if not msg.author.bot:
+        msg_count += 1
+
     if msg.author.id == 827903603557007390:
         if msg_ctt == "Nyan、ちょっとだまって":
             async with channel.typing():
@@ -225,10 +269,14 @@ async def on_message(msg):
                     )
                     await msg_ch.send(random.choice(msg_list))
                     master_flag = False
-                    
-    
-    if not msg.author.bot:
-        msg_count += 1
+
+    if (msg_ctt.startswith(prefix)):
+        command = msg_ctt.split(prefix)[1]
+
+        if (command == " ping"):
+            re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
+            comment = random.choice(list(re_tuple))
+            await msg_ch.send(comment)
                 
 
     if master_flag == True:
@@ -245,14 +293,6 @@ async def on_message(msg):
                     re_text = random.choice(re_text_tuple)
                     temp = await msg_ch.send(re_text)
             """
-
-        if (msg_ctt.startswith(prefix)):
-            command = msg_ctt.split(prefix)[1]
-
-            if (command == " ping"):
-                re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
-                comment = random.choice(list(re_tuple))
-                await msg_ch.send(comment)
 
         nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).members ]
         if msg_author_id in nyan_members_id and msg_ctt != "":
@@ -310,36 +350,42 @@ async def on_message(msg):
                 await member.edit(nick=nick_left+f'｜NyanCount:{count}')
                 nyan_checking_members_id.remove(msg_author_id)
 
-    if (msg_ctt != "" ,check_per(90), msg.author.id) == (True, True, client.user.id):
-        
+
+    if (msg_ctt != "" ,check_per(90), msg.author.id) != (False, False, client.user.id):
        
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
         if not flag2:
             return
+        ctt = msg_ctt
         async with channel.typing():
             flag2 = False
+            if not msg.author.id in feeling_dict:
+                    feeling_dict[msg.author.id] = 0
+            for word in ng_word_tuple:
+                if word in ctt:
+                    feeling_dict[msg.author.id] = feeling_dict[msg.author.id]-1
+            for word in g_word_tuple:
+                if word in ctt:
+                    feeling_dict[msg.author.id] = feeling_dict[msg.author.id]+1
+            feeling_dict[msg.author.id] = max(min(feeling_dict[msg.author.id],10),-10)
             res = talk.get(msg_ctt)
-            res = res.replace("ですね","にゃ").replace("ね","にゃ").replace("か?","かにゃん?")
-            res = res.replace('私','にゃー').replace('あなた','ご主人様').replace('な','にゃ')
-            res = res.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
-            if check_per(5):
-                res += '…///'
-            if check_per(5):
-                res += '♡'
-            if check_per(5) and not '/' in res and not '♡' in res:
-                res += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
-            if check_per(100):
+            feeling_num = feeling_dict[msg.author.id]
+            if feeling_num >= 0:
+                if feeling_num >= 0:
+                    res = nyan_translator(res)
+                if feeling_num >= 2:
+                    res = nyan_translator2(res)
+                if feeling_num >= 5:
+                    res = nyan_translator3(res)
                 if res == 'ご主人様は良くするんですかにゃん?':
                     res = '(´・ω・｀)'
-            if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
-                res = f'時計買ったので分かります、**{datetime.now.hour}**時にゃ'
-            if last_word != res:
-                await asyncio.sleep(int(len(res)/4))
-                await msg_ch.send(res)
-                last_word = res
-            else:
-                pass
+                if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
+                    res = f'時計買ったので分かるにゃ、**{datetime.now().hours}**時にゃ'
+                if last_word != res:
+                    await asyncio.sleep(int(len(res)/4))
+                    await msg_ch.send(f">{msg.author.name}\n"+res)
+                    last_word = res
             flag2 = True
             
 
