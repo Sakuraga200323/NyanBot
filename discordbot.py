@@ -381,7 +381,7 @@ async def on_message(msg):
                 if word in ctt:
                     feeling_dict[msg.author.id] = feeling_dict[msg.author.id]-1
             for word in g_word_tuple:
-                if word in ctt:
+                if word in ctt and check_per(50):
                     feeling_dict[msg.author.id] = feeling_dict[msg.author.id]+1
             feeling_dict[msg.author.id] = max(min(feeling_dict[msg.author.id],10),-10)
             res = talk.get(msg_ctt)
@@ -394,7 +394,7 @@ async def on_message(msg):
                 feeling_dict[msg.author.id] -= 1
             print("好感度: "+msg.author.name+"｜"+str(feeling_dict[msg.author.id]))
             print("be: "+res)
-            if feeling_num >= 0:
+            if feeling_num >= -2:
                 if msg.author.id == 827903603557007390:
                     res = res.replace("あなた", "ご主人様")
                 if feeling_num >= 0:
