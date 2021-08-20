@@ -363,7 +363,9 @@ async def on_message(msg):
             feeling_dict[msg.author.id] = max(min(feeling_dict[msg.author.id],10),-10)
             res = talk.get(msg_ctt)
             feeling_num = feeling_dict[msg.author.id]
-            print("好感度: "+msg.author.name+"｜"+feeling_dict[msg.author.id])
+            if msg.author.id == 827903603557007390:
+                feeling_dict[msg.author.id] = 10
+            print("好感度: "+msg.author.name+"｜"+str(feeling_dict[msg.author.id]))
             print("be: "+res)
             if feeling_num >= 0:
                 if msg.author.id == 827903603557007390:
