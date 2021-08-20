@@ -353,7 +353,7 @@ async def on_message(msg):
                     count = temp_list[1]
                 else:
                     count = 0
-                if not (count).isdigit():
+                if not (str(count)).isdigit():
                     await member.edit(nick=member.name+"｜NyanCount:0")
                 count = int(count)
                 count += check
