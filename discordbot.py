@@ -403,7 +403,7 @@ async def on_message(msg):
                     res = nyan_translator3(res,msg.author)
                 if res == 'ご主人様は良くするんですかにゃん?':
                     res = '(´・ω・｀)'
-                if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
+                if '時計を持って' in res and feeling_num >= 8:
                     res = f'時計買ったので分かるにゃ、**{datetime.now().hours}**時にゃ'
                 print("af: "+res)
                 if last_word != res:
