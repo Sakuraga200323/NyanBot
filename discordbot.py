@@ -122,15 +122,6 @@ msg_count_ch = None
 async def ch_edit_loop():
     global NYAN
     global msg_count
-    """
-    num_result = get_data(nyanlog_ch) + NYAN
-    if NYAN != 0:
-        print(NYAN)
-    if NYAN != get_data(nyanlog_ch):
-        ch_name = f'合計日数：{num_result}'
-        await nyanlog_ch.edit(name=ch_name)
-        NYAN = 0
-    """
     if msg_count > 0:
         num_result = get_data(msg_count_ch) + msg_count
         ch_name = f'総発言数：{num_result}'
