@@ -180,6 +180,7 @@ def check_samenum(a,n):
 def nyan_translator(str):
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
+    print("A"+str)
     return str
 
 def nyan_translator2(str):
@@ -189,6 +190,7 @@ def nyan_translator2(str):
     str = str.replace('私','にゃー')
     str = str.replace('な','にゃ')
     str = str.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
+    print("B"+str)
     return str
 
 def nyan_translator3(str, user):
@@ -199,6 +201,7 @@ def nyan_translator3(str, user):
     if check_per(5) and not '/' in str and not '♡' in str:
         str += '♪'
     str = str.replace('あなた', user.name+"さん")
+    print("C"+str)
     return str
     
 @client.event
