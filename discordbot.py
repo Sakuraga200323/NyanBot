@@ -215,7 +215,7 @@ def nyan_translator3(str, user):
     if check_per(5) and not '/' in str and not '♡' in str:
         str += '!'
     if check_per(50):
-        str += str.replace("秘密"," ひ・み・つ ")
+        str = str.replace("秘密"," ひ・み・つ ")
     str = str.replace('あなた', user.name+"さん")
     print("C"+str)
     return str
