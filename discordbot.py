@@ -371,11 +371,12 @@ async def on_message(msg):
                 if feeling_num >= 2:
                     res = nyan_translator2(res)
                 if feeling_num >= 5:
-                    res = nyan_translator3(res)
+                    res = nyan_translator3(res,msg.author)
                 if res == 'ご主人様は良くするんですかにゃん?':
                     res = '(´・ω・｀)'
                 if res == 'ごめんにゃさい今時計を持っていにゃいのでわかりません':
                     res = f'時計買ったので分かるにゃ、**{datetime.now().hours}**時にゃ'
+                print(res)
                 if last_word != res:
                     await asyncio.sleep(int(len(res)/4))
                     await msg_ch.send(f">{msg.author.name}\n"+res)
