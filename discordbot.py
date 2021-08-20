@@ -195,7 +195,7 @@ def nyan_translator2(str):
     str = str.replace("ですね","にゃ")
     str = str.replace("ね","にゃ")
     str = str.replace("か?","かにゃん?")
-    str = res.replace('私','にゃー')
+    str = str.replace('私','にゃー')
     str = str.replace('な','にゃ')
     str = str.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
     return
