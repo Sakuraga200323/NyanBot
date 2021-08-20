@@ -8,6 +8,7 @@ import re
 import signal
 import sys
 import traceback
+import unicodedata
 
 import discord
 from discord.ext import tasks, commands
@@ -220,7 +221,16 @@ def nyan_translator3(str, user):
     str = str.replace('あなた', user.name+"さん")
     print("C"+str)
     return str
-    
+
+def is_japanese(string):
+    for ch in string:
+        name = unicodedata.name(ch) 
+        if "CJK UNIFIED" in name \
+        or "HIRAGANA" in name \
+        or "KATAKANA" in name:
+            return True
+    return False
+
 @client.event
 async def on_message(msg):
     global NYAN
@@ -363,16 +373,17 @@ async def on_message(msg):
 
 
     if (msg_ctt != "" ,check_per(100)) == (True, True):
+        ctt = msg_ctt
         if msg.author.id == client.user.id:
             return
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
         if not flag2:
-            
+            return
+        if not is_japanese(ctt):
             return
         if msg_ctt.startswith("(") or msg_ctt.startswith("（"):
             return
-        ctt = msg_ctt
         async with channel.typing():
             flag2 = False
             if not msg.author.id in feeling_dict:
