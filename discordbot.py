@@ -1,3 +1,6 @@
+
+
+
 import ast
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -266,6 +269,10 @@ async def on_message(msg):
                 await asyncio.sleep(2)
             await msg_ch.send('にゃぁ！！')
             master_flag = True
+        if msg_ctt.startswith('nyan! 好感度 '):
+            id = msg_ctt.split('好感度  ')[1]
+            if (id.isdigit()):
+                await msg.ch.send(feeling_dict[id])
 
     if msg_ctt == "nyan! stop" and damare_count < 3:
         if msg.author.id in damarer:
@@ -414,10 +421,10 @@ async def on_message(msg):
                     res = nyan_translator2(res)
                 if feeling_num >= 5:
                     res = nyan_translator3(res,msg.author)
-                if res == 'ご主人様は良くするんですかにゃん?':
+                if  'ご主人様は良く' in res:
                     res = '(´・ω・｀)'
                 if '時計を持って' in res and feeling_num >= 8:
-                    res = f'時計買ったので分かるにゃ、**{datetime.now().hour}**時にゃ'
+                    res = f'時計買ったので分かるにゃ、**{datetime.now(JST).hour}**時にゃ'
                 print("af: "+res)
                 if last_word != res:
                     await asyncio.sleep(int(len(res)/4))
