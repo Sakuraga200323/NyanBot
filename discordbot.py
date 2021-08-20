@@ -384,6 +384,10 @@ async def on_message(msg):
             feeling_num = feeling_dict[msg.author.id]
             if msg.author.id == 827903603557007390:
                 feeling_dict[msg.author.id] = 10
+            if check_per(5+feeling_dict[msg.author.id]):
+                feeling_dict[msg.author.id] += 1
+            if check_per(5-feeling_dict[msg.author.id]):
+                feeling_dict[msg.author.id] -= 1
             print("好感度: "+msg.author.name+"｜"+str(feeling_dict[msg.author.id]))
             print("be: "+res)
             if feeling_num >= 0:
@@ -404,8 +408,6 @@ async def on_message(msg):
                     await asyncio.sleep(int(len(res)/4))
                     await msg_ch.send(f">{msg.author.name}\n"+res)
                     last_word = res
-                    if check_per(5):
-                        feeling_dict[msg.author.id] += 1
             flag2 = True
             
 
