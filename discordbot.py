@@ -142,7 +142,7 @@ async def ch_edit_loop():
     else:
         print("人数記録チャンネルがない！")
     member = guild.get_member(client.user.id)
-    await member.edit(nick='にゃー!')
+    await member.edit(nick='雪猫')
 
 @client.event
 async def on_ready():
@@ -367,6 +367,8 @@ async def on_message(msg):
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
         if not flag2:
+            return
+        if msg_ctt.startswith("(") or msg_ctt.startswith("（"):
             return
         ctt = msg_ctt
         async with channel.typing():
