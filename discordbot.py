@@ -404,6 +404,8 @@ async def on_message(msg):
                     await asyncio.sleep(int(len(res)/4))
                     await msg_ch.send(f">{msg.author.name}\n"+res)
                     last_word = res
+                    if check_per(5):
+                        feeling_dict[msg.author.id] += 1
             flag2 = True
             
 
