@@ -406,7 +406,7 @@ async def on_message(msg):
                 if res == 'ご主人様は良くするんですかにゃん?':
                     res = '(´・ω・｀)'
                 if '時計を持って' in res and feeling_num >= 8:
-                    res = f'時計買ったので分かるにゃ、**{datetime.now().hours}**時にゃ'
+                    res = f'時計買ったので分かるにゃ、**{datetime.now().hour}**時にゃ'
                 print("af: "+res)
                 if last_word != res:
                     await asyncio.sleep(int(len(res)/4))
