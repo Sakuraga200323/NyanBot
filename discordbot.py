@@ -270,7 +270,7 @@ async def on_message(msg):
             await msg_ch.send(comment)
                 
 
-    if master_flag == True:
+    if master_flag == True and msg.guild != None:
         if (not msg.author.id in (odaneko_id, client.user.id) and not msg.author.bot):
             """
             for i in ng_word_tuple:
