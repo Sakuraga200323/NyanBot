@@ -189,7 +189,7 @@ def nyan_translator2(str):
     str = str.replace('私','にゃー')
     str = str.replace('な','にゃ')
     str = str.replace('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん']))
-    return
+    return str
 
 def nyan_translator3(str, user):
     if check_per(5):
