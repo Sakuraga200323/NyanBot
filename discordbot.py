@@ -330,8 +330,11 @@ async def on_message(msg):
                     feeling_dict[msg.author.id] -= simo_check
                 print("af: "+res)
                 if last_word != res:
-                    await asyncio.sleep(int(len(res)/5)+1)
-                    await msg_ch.send(f">{msg.author.name}\n"+res)
+                    time = int(len(res)/10)+1
+                    await asyncio.sleep(time)
+                    flag2 = True
+                    await asyncio.sleep(time)
+                    await msg_ch.reply(f">{msg.author.name}\n"+res, mention_author=False)
                     last_word = res
                     em = discord.Embed(title=f'{msg.author.name}との会話')
                     em.add_field(name='好感',value=feeling_dict[msg.author.id])
