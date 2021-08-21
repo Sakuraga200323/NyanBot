@@ -205,6 +205,7 @@ def nyan_translator2(str):
         ("行","イ"),
         ('はい','にゃん、'),
     )
+    str = str.replace('あなた', user.name+"さん")
     for i in replace_tuple:
         str = str.replace(i[0],i[1])
     print("B"+str)
@@ -221,7 +222,6 @@ def nyan_translator3(str, user):
         str += '!'
     if check_per(50):
         str = str.replace("秘密"," ひ・み・つ ")
-    str = str.replace('あなた', user.name+"さん")
     print("C"+str)
     return str
 
