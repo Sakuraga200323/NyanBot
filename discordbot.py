@@ -325,7 +325,7 @@ async def on_message(msg):
                     em.add_field(name='好感',value=feeling_dict[msg.author.id])
                     em.add_field(name='相手',value=msg_ctt)
                     em.add_field(name='返信',value=res)
-                    log_ch = client.get_channel(878576501744869386)
+                    log_ch = client.get_channel(878594409166430259)
                     await log_ch.send(embed=em)
             flag2 = True
             
