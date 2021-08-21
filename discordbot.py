@@ -1,6 +1,7 @@
 
 
 
+
 import ast
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -324,7 +325,7 @@ get_channel(870368104805466192)
                     await msg_ch.send(f">{msg.author.name}\n"+res)
                     last_word = res
                     em = discord.Embed(title=f'{msg.author.name}との会話')
-                    em.add_field(name='好感度',value=feeling_dict(msg.author.id))
+                    em.add_field(name='好感度',value=feeling_dict[msg.author.id])
                     em.add_field(name='相手',value=msg_ctt)
                     em.add_field(name='返信',value=res)
                     log_ch = client.get_channel(878576501744869386)
