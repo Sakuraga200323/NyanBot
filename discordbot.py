@@ -157,7 +157,7 @@ async def on_ready():
     
     ch_edit_loop.start()
     log_ch = client.get_channel(870264545338347580)
-    await log_ch.send('起動したにゃ!\n皆の事は忘れちゃったけど…またお話してくれると嬉しいにゃ(=^･ω･^=)')
+    await log_ch.send('再起動しました。\n既存の感情パラメータは初期化されましたが、また話して貰えると嬉しいです。')
     
 flag = True
 master_flag = True
@@ -334,7 +334,7 @@ async def on_message(msg):
                     await asyncio.sleep(time)
                     flag2 = True
                     await asyncio.sleep(time)
-                    await msg_ch.reply(f">{msg.author.name}\n"+res, mention_author=False)
+                    await msg.reply(res, mention_author=False)
                     last_word = res
                     em = discord.Embed(title=f'{msg.author.name}との会話')
                     em.add_field(name='好感',value=feeling_dict[msg.author.id])
