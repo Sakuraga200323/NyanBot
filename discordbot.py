@@ -2,6 +2,7 @@
 import ast
 import asyncio
 from datetime import datetime, timedelta, timezone
+import difflib
 import math
 import os
 import random
@@ -163,8 +164,6 @@ flag = True
 master_flag = True
 flag2 = True
 
-nyan_checking_members_id = []
-
 talk = Talk()
 last_word = ''
 feeling_dict = {}
@@ -234,6 +233,13 @@ def is_japanese(string):
             return True
     return False
 
+
+
+usersMsgLogDict = {}
+
+def check_similarly(a,b):
+    return difflib.SequenceMatcher(None, a, b).ratio()
+
 @client.event
 async def on_message(msg):
     global NYAN
@@ -244,7 +250,7 @@ async def on_message(msg):
     global damare_count
     global damarer
     global msg_count
-    global flag2, last_word, feeling_dict
+    global flag2, last_word, feeling_dict, usersMsgLogDict
     
     guild = msg.guild
     
@@ -272,39 +278,50 @@ async def on_message(msg):
                 
     if (msg_ctt != "" ,check_per(100)) == (True, True):
         ctt = msg_ctt
-        if msg.author.id == client.user.id:
+        user_id = msg.author.id
+        if user_id == client.user.id:
             return
         if not( msg.guild == None or msg_ch.id == 870264545338347580):
             return
-        if not flag2:
-            return
-        if not is_japanese(ctt):
+        if not flag2 or not is_japanese(ctt):
             return
         if msg_ctt.startswith("(") or msg_ctt.startswith("（"):
             return
         async with channel.typing():
             flag2 = False
+            if not user_id in usersMsgLogDict:
+                usersMsgLogDict[user_id] = []
             if not msg.author.id in feeling_dict:
-                    feeling_dict[msg.author.id] = 0
+                feeling_dict[user_id] = 0
             for word in ng_word_tuple:
                 if word in ctt:
-                    feeling_dict[msg.author.id] = feeling_dict[msg.author.id]-1
+                    feeling_dict[user_id] = feeling_dict[user_id]-1
             for word in g_word_tuple:
                 if word in ctt and check_per(50):
-                    feeling_dict[msg.author.id] = feeling_dict[msg.author.id]+1
-            feeling_dict[msg.author.id] = max(min(feeling_dict[msg.author.id],10),-10)
+                    feeling_dict[user_id] = feeling_dict[user_id]+1
+            feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
             res = talk.get(msg_ctt)
-            feeling_num = feeling_dict[msg.author.id]
+            feeling_num = feeling_dict[user_id]
             if msg.author.id == 827903603557007390:
-                feeling_dict[msg.author.id] = 10
-            if check_per(5+feeling_dict[msg.author.id]):
-                feeling_dict[msg.author.id] += 1
-            if check_per(5-feeling_dict[msg.author.id]):
-                feeling_dict[msg.author.id] -= 1
-            print("好感度: "+msg.author.name+"｜"+str(feeling_dict[msg.author.id]))
-            print("be: "+res)
+                feeling_dict[user_id] = 10
+            if check_per(5+feeling_dict[user_id]):
+                feeling_dict[user_id] += 1
+            if check_per(5-feeling_dict[user_id]):
+                feeling_dict[user_id] -= 1
+            
+            similarly_list = []
+            similarly_result = 0.0
+            if len(usersMsgLogDict) > 0:
+                for i in usersMsgLogDict[user_id]:
+                    similarly_list.append(check_similarly(i,msg_ctt))
+                similarly_result = sum(similarly_list)/len(similarly_list)
+            usersMsgLogDict[user_id].append(msg_ctt)
+            temp_list = usersMsgLogDict[user_id]
+            if len(temp_list) > 5:
+                usersMsgLogDict[user_id] = temp_list[1:]
+
             if feeling_num >= -5:
-                if msg.author.id == 827903603557007390:
+                if user_id == 827903603557007390:
                     res = res.replace("あなた", "ご主人様")
                 if feeling_num >= 0:
                     res = nyan_translator(res)
@@ -315,7 +332,7 @@ async def on_message(msg):
                 if  'ご主人様は良く' in res:
                     res = '(´・ω・｀)'
                 if '時計を持って' in res and feeling_num >= 8:
-                    res = f'時計買ったので分かるにゃ、**{datetime.now(JST).hour}**時にゃ'
+                    res = f'**{datetime.now(JST).hour}**時にゃ'
                 simo_check_tuple = (
                     'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
                 )
@@ -328,6 +345,12 @@ async def on_message(msg):
                         ['( ˘•ω•˘ )','( ´•ω•｀)','(   ˙-˙   )','(｡•́ - •̀｡)','(  ´0ω0`)']
                     )
                     feeling_dict[msg.author.id] -= simo_check
+
+                if similarly_result >= 0.9:
+                    feeling_dict[user_id] -= 3
+                    res = random.choice(
+                        ['I hate you(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
+                    )
                 print("af: "+res)
                 if last_word != res:
                     time = int(len(res)/10)+1
@@ -340,30 +363,10 @@ async def on_message(msg):
                     em.add_field(name='好感',value=feeling_dict[msg.author.id])
                     em.add_field(name='相手',value=msg_ctt)
                     em.add_field(name='返信',value=res)
+                    em.add_field(name='類似性',value=similarly_result)
                     log_ch = client.get_channel(878594409166430259)
                     await log_ch.send(embed=em)
             flag2 = True
             
-
-
-
-
-        if msg_ctt.startswith(prefix):
-
-            if msg_ch.id == 870266562018426921:
-                if msg_ctt.startswith('nyan!trade "'):
-                    de = msg_ctt.split('"')[1]
-                    q = msg_ctt.split('"')[3]
-                    plus_a = msg_ctt.split('"')[5]
-                    embed = discord.Embed(title=f'{msg.author.name}さんの取引です')
-                    embed.add_field(name="**出**", value=de)
-                    embed.add_field(name="**求**", value=q)
-                    embed.add_field(name="**追記**", value=plus_a)
-                    async with channel.typing():
-                        # simulate something heavy
-                        await asyncio.sleep(2)
-                    await msg_ch.send(embed=embed)
-                    await asyncio.sleep(5)
-                    await msg.delete()
 
 client.run(token)
