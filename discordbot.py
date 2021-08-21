@@ -317,7 +317,7 @@ async def on_message(msg):
                 similarly_result = sum(similarly_list)/len(similarly_list)
             usersMsgLogDict[user_id].append(msg_ctt)
             temp_list = usersMsgLogDict[user_id]
-            if len(temp_list) > 5:
+            if len(temp_list) > 3:
                 usersMsgLogDict[user_id] = temp_list[1:]
 
             if feeling_num >= -5:
@@ -346,7 +346,7 @@ async def on_message(msg):
                     )
                     feeling_dict[msg.author.id] -= simo_check
 
-                if similarly_result >= 0.75 and len(temp_list) > 4:
+                if similarly_result >= 0.75 and len(temp_list) > 2:
                     feeling_dict[user_id] -= 3
                     res = random.choice(
                         ['(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
