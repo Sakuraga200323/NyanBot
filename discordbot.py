@@ -1,7 +1,5 @@
 
 
-
-
 import ast
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -269,8 +267,7 @@ async def on_message(msg):
     if msg_ch.id == 870368104805466192:
         if msg_ctt.isdigit() and check_per(50):
             res = int(msg_ctt) + 1
-            count_ch = client
-get_channel(870368104805466192)
+            count_ch = client.get_channel(870368104805466192)
             await count_ch.send(res)
                 
     if (msg_ctt != "" ,check_per(100)) == (True, True):
