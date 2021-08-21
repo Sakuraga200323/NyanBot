@@ -157,7 +157,7 @@ async def on_ready():
     
     ch_edit_loop.start()
     log_ch = client.get_channel(870264545338347580)
-    await log.ch.send('起動したにゃ!\n皆の事は忘れちゃったけど…またお話してくれると嬉しいにゃ(=^･ω･^=)')
+    await log_ch.send('起動したにゃ!\n皆の事は忘れちゃったけど…またお話してくれると嬉しいにゃ(=^･ω･^=)')
     
 flag = True
 master_flag = True
