@@ -202,8 +202,9 @@ def nyan_translator2(str):
         ('ありがとうございます',random.choice(['ありがとにゃん','ありがとうございますにゃん'])),
         ("下さい","下さいにゃ"),
         ("ください","くださいにゃ"),
-        ("わかりません","わかりませんにゃ……"),
+        ("ません","ませんにゃ……"),
         ("行","イ"),
+        ('はい','にゃん、'),
     )
     for i in replace_tuple:
         str = str.replace(i[0],i[1])
@@ -253,50 +254,8 @@ async def on_message(msg):
     channel = msg_ch
     msg_author_id = msg.author.id
 
-    if not msg.author.bot:
+    if not msg.author.bot and msg.guild.id == 870264494541135882:
         msg_count += 1
-
-    if msg.author.id == 827903603557007390:
-        if msg_ctt == "Nyan、ちょっとだまって":
-            async with channel.typing():
-                # simulate something heavy
-                await asyncio.sleep(2)
-            await msg_ch.send('にゃぁ…')
-            master_flag = False
-        if msg_ctt == "Nyan、話していいよ":
-            async with channel.typing():
-                # simulate something heavy
-                await asyncio.sleep(2)
-            await msg_ch.send('にゃぁ！！')
-            master_flag = True
-        if msg_ctt.startswith('nyan! 好感度 '):
-            id = msg_ctt.split('好感度  ')[1]
-            if (id.isdigit()):
-                await msg.ch.send(feeling_dict[id])
-
-    if msg_ctt == "nyan! stop" and damare_count < 3:
-        if msg.author.id in damarer:
-            async with channel.typing():
-                # simulate something heavy
-                await asyncio.sleep(msg_delete_num3)
-                await msg_ch.send(f'{msg.author.mention}さんはすでに黙れ申請をしてるにゃ')
-        else:
-            damarer.append(msg.author.id)
-            damare_count += 1
-            async with channel.typing():
-                await msg_ch.send(f'{msg.author.mention}さんの黙れ申請を受理したにゃ')
-                if damare_count < 3:
-                    # simulate something heavy
-                    await msg_ch.send(f'あと{3-damare_count}人でだまるにゃ…')
-                elif damare_count == 3:
-                    msg_list = (
-                        'みんなそんなに黙ってほしーにゃか…',
-                        '3人に黙れって言われたから、明日まで黙るにゃ',
-                        'そんなに黙ってほしいなら黙るにゃ',
-                        'みんなにゃーのこときらいにゃのにゃ…'
-                    )
-                    await msg_ch.send(random.choice(msg_list))
-                    master_flag = False
 
     if (msg_ctt.startswith(prefix)):
         command = msg_ctt.split(prefix)[1]
@@ -305,80 +264,14 @@ async def on_message(msg):
             re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
             comment = random.choice(list(re_tuple))
             await msg_ch.send(comment)
+
+    if msg_ch.id == 870368104805466192:
+        if msg_ctt.isdigit() and check_per(50):
+            res = int(msg_ctt) + 1
+            count_ch = client
+get_channel(870368104805466192)
+            await count_ch.send(res)
                 
-
-    if master_flag == True and msg.guild != None:
-        if (not msg.author.id in (odaneko_id, client.user.id) and not msg.author.bot):
-            """
-            for i in ng_word_tuple:
-                if i in msg_ctt:
-                    re_text_tuple = (
-                        f'**{i}**なんていう人きらいにゃ！',
-                        f'なんで**{i}**なんていうにゃ…',
-                        f'言葉は時として相手を傷つけるにゃ。\n**{i}**なんていい例にゃ',
-                        f'**{i}**は決していいことばじゃにゃーよ…',
-                    )
-                    re_text = random.choice(re_text_tuple)
-                    temp = await msg_ch.send(re_text)
-            """
-
-        nyan_members_id = [ i.id for i in guild.get_role(870538137649152010).members ]
-        if msg_author_id in nyan_members_id and msg_ctt != "":
-            if not msg_author_id in nyan_checking_members_id:
-                nyan_checking_members_id.append(msg_author_id)
-                num_down1 = get_data(get_ch(day_up_id_1))
-                num_down2 = get_data(get_ch(day_up_id_2))
-                num_up = get_data(get_ch(day_down_id))
-                check = 0
-                if not check_nyan(msg_ctt):
-                    async with channel.typing():
-                        re_text = ""
-                        def check_nyan_try2(m):
-                            if m.author.id != msg.author.id:
-                                return 0
-                            if m.channel.id != msg_ch.id:
-                                return 0
-                            if not check_nyan(m.content):
-                                return 0
-                            return 1
-                        try:
-                            msd2 = await client.wait_for("message", timeout=5, check=check_nyan_try2)
-                        except asyncio.TimeoutError:
-                            check -= num_down1
-                            re_text_tuple = (
-                                f'**{msg.author}**さん、にゃん！',
-                                f'**{msg.author}**さん猫語忘れてるにゃ～',
-                                f'**{msg.author}**さんは猫語でしゃべらないとにゃ！',
-                                f'**{msg.author}**さん、猫語！',
-                                f'**{msg.author}**さん、あなたそれでも猫にゃ！？',
-                            )
-                            re_text = random.choice(re_text_tuple)
-                        else:
-                            re_text = f'セーフ！\nあと少し遅かったらマイナスだったにゃん！'
-                    await msg_ch.send(re_text,delete_after=msg_delete_num)
-                else:
-                    check += num_up
-                member = guild.get_member(msg.author.id)
-                nick = member.nick
-                if not nick:
-                    nick = member.name
-                if not "｜NyanCount:" in nick:
-                    await member.edit(nick=nick+"｜NyanCount:0")
-                    nick = member.name
-                temp_list = nick.split("｜NyanCount:")
-                nick_left = temp_list[0]
-                if len(temp_list) == 2:
-                    count = temp_list[1]
-                else:
-                    count = 0
-                if not (str(count)).isdigit():
-                    await member.edit(nick=member.name+"｜NyanCount:0")
-                count = int(count)
-                count += check
-                await member.edit(nick=nick_left+f'｜NyanCount:{count}')
-                nyan_checking_members_id.remove(msg_author_id)
-
-
     if (msg_ctt != "" ,check_per(100)) == (True, True):
         ctt = msg_ctt
         if msg.author.id == client.user.id:
@@ -412,7 +305,7 @@ async def on_message(msg):
                 feeling_dict[msg.author.id] -= 1
             print("好感度: "+msg.author.name+"｜"+str(feeling_dict[msg.author.id]))
             print("be: "+res)
-            if feeling_num >= -2:
+            if feeling_num >= -5:
                 if msg.author.id == 827903603557007390:
                     res = res.replace("あなた", "ご主人様")
                 if feeling_num >= 0:
@@ -427,9 +320,15 @@ async def on_message(msg):
                     res = f'時計買ったので分かるにゃ、**{datetime.now(JST).hour}**時にゃ'
                 print("af: "+res)
                 if last_word != res:
-                    await asyncio.sleep(int(len(res)/4))
+                    await asyncio.sleep(int(len(res)/5)+1)
                     await msg_ch.send(f">{msg.author.name}\n"+res)
                     last_word = res
+                    em = discord.Embed(title=f'{msg.author.name}との会話')
+                    em.add_field(name='好感度',value=feeling_dict(msg.author.id))
+                    em.add_field(name='相手',value=msg_ctt)
+                    em.add_field(name='返信',value=res)
+                    log_ch = client.get_channel(878576501744869386)
+                    await log.ch.send(embed=em)
             flag2 = True
             
 
