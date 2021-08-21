@@ -1,5 +1,4 @@
 
-
 import ast
 import asyncio
 from datetime import datetime, timedelta, timezone
@@ -316,6 +315,18 @@ async def on_message(msg):
                     res = '(´・ω・｀)'
                 if '時計を持って' in res and feeling_num >= 8:
                     res = f'時計買ったので分かるにゃ、**{datetime.now(JST).hour}**時にゃ'
+                simo_check_tuple = (
+                    'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
+                )
+                simo_check = 0
+                for i in simo_check_tuple:
+                    if i in msg_ctt:
+                        simo_check += 1
+                if simo_check > 0:
+                    res = random.choice(
+                        ['( ˘•ω•˘ )','( ´•ω•｀)','(   ˙-˙   )','(｡•́ - •̀｡)','(  ´0ω0`)']
+                    )
+                    feeling_dict[msg.author.id] -= simo_check
                 print("af: "+res)
                 if last_word != res:
                     await asyncio.sleep(int(len(res)/5)+1)
