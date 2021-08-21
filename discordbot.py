@@ -186,7 +186,7 @@ def nyan_translator(str):
     print("A"+str)
     return str
 
-def nyan_translator2(str):
+def nyan_translator2(str,user):
     replace_tuple = (
         ("ですね","にゃ"),
         ("ですよ","にゃ"),
@@ -309,7 +309,7 @@ async def on_message(msg):
                 if feeling_num >= 0:
                     res = nyan_translator(res)
                 if feeling_num >= 2:
-                    res = nyan_translator2(res)
+                    res = nyan_translator2(res,msg.author)
                 if feeling_num >= 5:
                     res = nyan_translator3(res,msg.author)
                 if  'ご主人様は良く' in res:
