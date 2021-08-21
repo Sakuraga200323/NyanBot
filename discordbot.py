@@ -346,7 +346,7 @@ async def on_message(msg):
                     )
                     feeling_dict[msg.author.id] -= simo_check
 
-                if similarly_result >= 0.75 and len(temp_list) > 2:
+                if similarly_result >= 0.5 and len(temp_list) > 2:
                     feeling_dict[user_id] -= 3
                     res = random.choice(
                         ['(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
