@@ -156,7 +156,8 @@ async def on_ready():
     msg_count_ch = guild.get_channel(msg_count_ch_id)
     
     ch_edit_loop.start()
-    print("Nyan!!")
+    log_ch = client.get_channel(870264545338347580)
+    await log.ch.send('起動したにゃ!\n皆の事は忘れちゃったけど…またお話してくれると嬉しいにゃ(=^･ω･^=)')
     
 flag = True
 master_flag = True
