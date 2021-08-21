@@ -290,7 +290,7 @@ async def on_message(msg):
         async with channel.typing():
             flag2 = False
             if not user_id in usersMsgLogDict:
-                usersMsgLogDict[user_id] = []
+                usersMsgLogDict[user_id] = ['temp']
             if not msg.author.id in feeling_dict:
                 feeling_dict[user_id] = 0
             for word in ng_word_tuple:
@@ -311,7 +311,7 @@ async def on_message(msg):
             
             similarly_list = []
             similarly_result = 0.0
-            if len(usersMsgLogDict) > 0:
+            if len(usersMsgLogDict[user_id]) > 0:
                 for i in usersMsgLogDict[user_id]:
                     similarly_list.append(check_similarly(i,msg_ctt))
                 similarly_result = sum(similarly_list)/len(similarly_list)
@@ -346,7 +346,7 @@ async def on_message(msg):
                     )
                     feeling_dict[msg.author.id] -= simo_check
 
-                if similarly_result >= 0.9:
+                if similarly_result >= 0.9 and len(temp_list) > 4:
                     feeling_dict[user_id] -= 3
                     res = random.choice(
                         ['I hate you(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
