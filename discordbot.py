@@ -346,10 +346,10 @@ async def on_message(msg):
                     )
                     feeling_dict[msg.author.id] -= simo_check
 
-                if similarly_result >= 0.9 and len(temp_list) > 4:
+                if similarly_result >= 0.75 and len(temp_list) > 4:
                     feeling_dict[user_id] -= 3
                     res = random.choice(
-                        ['I hate you(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
+                        ['(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
                     )
                 print("af: "+res)
                 if last_word != res:
