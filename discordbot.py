@@ -206,7 +206,7 @@ async def on_ready():
             feeling_dict[msg.author.id] = num
         readed_msg_num += 1
         if (check_per(10) or readed_msg_num==msg_num):
-            await reading_msg.edit(content=f"読破割合:int({readed_msg_num/msg_num*100})")
+            await reading_msg.edit(content=f"読破割合:(int{readed_msg_num/msg_num*100})")
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ全部読み終わりました。')
     
     ch_edit_loop.start()
