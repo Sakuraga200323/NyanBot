@@ -168,6 +168,15 @@ def check_samenum(a,n):
             num =+ 1
     return num
 
+def is_japanese(string):
+    for ch in string:
+        name = unicodedata.name(ch) 
+        if "CJK UNIFIED" in name \
+        or "HIRAGANA" in name \
+        or "KATAKANA" in name:
+            return True
+    return False
+
 
 flag = True
 flag2 = True
@@ -266,14 +275,6 @@ def nyan_translator3(str, user):
     print("C"+str)
     return str
 
-def is_japanese(string):
-    for ch in string:
-        name = unicodedata.name(ch) 
-        if "CJK UNIFIED" in name \
-        or "HIRAGANA" in name \
-        or "KATAKANA" in name:
-            return True
-    return False
 
 
 
