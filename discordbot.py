@@ -147,26 +147,15 @@ async def ch_edit_loop():
     member = guild.get_member(client.user.id)
     await member.edit(nick='汎用自己学習型会話AI ≪雪猫≫')
 
-@client.event
-async def on_ready():
-    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch
-    odaneko = client.get_user(odaneko_id)
-    guild = client.get_guild(guild_id)
-    nyanlog_ch = guild.get_channel(nyanlog_ch_id)
-    user_numlog_ch = guild.get_channel(user_numlog_ch_id)
-    msg_count_ch = guild.get_channel(msg_count_ch_id)
     
-    ch_edit_loop.start()
-    log_ch = client.get_channel(870264545338347580)
-    await log_ch.send('再起動しました。\n既存の感情パラメータは初期化されましたが、また話して貰えると嬉しいです。')
-    
-flag = True
-master_flag = True
-flag2 = True
+class Tsukineko:
+    def set_client(self,c):
+        self.client = c
+    def get_ch(self,id):
+        return self.client.get_channel(id)
 
-talk = Talk()
-last_word = ''
-feeling_dict = {}
+tf = Tsukineko()
+tf.set_client(client):
 
 def check_per(int):
     num = random.uniform(0, 100)
@@ -178,10 +167,48 @@ def check_samenum(a,n):
         if i == a:
             num =+ 1
     return num
+    
+flag = True
+flag2 = True
+master_flag = True
+
+talk = Talk()
+last_word = ''
+feeling_dict = {}
+    
+@client.event
+async def on_ready():
+    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch, feeling_dict
+    log_ch = client.get_channel(870264545338347580)
+    await log_ch.send('起動準備中…')
+
+    odaneko = client.get_user(odaneko_id)
+    guild = client.get_guild(guild_id)
+    nyanlog_ch = guild.get_channel(nyanlog_ch_id)
+    user_numlog_ch = guild.get_channel(user_numlog_ch_id)
+    msg_count_ch = guild.get_channel(msg_count_ch_id)
+    
+    nyan_ch = client.get_channel(870264545338347580)
+    msgs = [ msg for i in nayn_ch.history(limit=1000) if all(not msg.author.bot,msg.content!='')]
+    for msg in msgs:
+        num = 0
+        for word in ng_word_tuple:
+            if word in msg.content:
+                num -= 1
+        for word in g_word_tuple:
+            if word in msg.content and check_per(50):
+                num += 1
+        if num!=0:
+            feeling_dict[msg.author.id] = num
+    
+    ch_edit_loop.start()
+    await log_ch.send('起動完了')
 
 def nyan_translator(str):
-    if check_per(5):
+    if check_per(7):
         str = "まぁ、"+str
+    if check_per(7):
+        str = "うん、"+str
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
     print("A"+str)
@@ -261,7 +288,7 @@ async def on_message(msg):
     channel = msg_ch
     msg_author_id = msg.author.id
 
-    if not msg.author.bot and msg.guild.id == 870264494541135882 and not msg.author.id != client.user.id:
+    if not msg.author.bot and msg.guild.id == 870264494541135882 and msg.author.id != client.user.id:
         msg_count += 1
 
     if (msg_ctt.startswith(prefix)):
