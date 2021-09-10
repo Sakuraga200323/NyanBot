@@ -180,6 +180,8 @@ def check_samenum(a,n):
     return num
 
 def nyan_translator(str):
+    if chek_per(5):
+        str = "まぁ、"+str
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
     print("A"+str)
@@ -331,6 +333,8 @@ async def on_message(msg):
                     res = nyan_translator3(res,msg.author)
                 if  'ご主人様は良く' in res:
                     res = '(´・ω・｀)'
+                if  '大丈夫ですか' in res:
+                    res = "頭"+res
                 if '時計を持って' in res and feeling_num >= 8:
                     res = f'**{datetime.now(JST).hour}**時にゃ'
                 simo_check_tuple = (
