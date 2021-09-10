@@ -210,7 +210,7 @@ async def on_ready():
         readed_msg_num += 1
         if (check_per(1) or readed_msg_num==msg_num):
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*10000)/100}%")
-        print(f"{(msg.cleated_at).strftime('%Y/%m/%d %H:%M:%S｜')}{msg.content})
+        print(f"{(msg.cleated_at).strftime('%Y/%m/%d %H:%M:%S｜')}{msg.content}")
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ読み終わりました。')
     talk_flag = true
     
