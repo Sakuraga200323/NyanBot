@@ -401,5 +401,4 @@ async def on_message(msg):
                     await log_ch.send(embed=em)
             flag2 = True
             
-
 client.run(token)
