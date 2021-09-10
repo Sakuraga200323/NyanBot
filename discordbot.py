@@ -191,6 +191,7 @@ async def on_ready():
     nyan_ch = client.get_channel(870264545338347580)
     await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
     msgs = [ msg for msg in await nyan_ch.history().flatten() if all([not msg.author.bot,msg.content!=''])]
+    msg_num = len(msgs)
     for msg in msgs:
         num = 0
         for word in ng_word_tuple:
@@ -201,7 +202,7 @@ async def on_ready():
                 num += 1
         if num!=0:
             feeling_dict[msg.author.id] = num
-    await log_ch.send('ちょっとずるしましたが、読み終わりました。')
+    await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ全部読み終わりました。')
     
     ch_edit_loop.start()
     await log_ch.send('起動完了')
