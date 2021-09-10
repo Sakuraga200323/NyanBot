@@ -190,7 +190,7 @@ async def on_ready():
     
     nyan_ch = client.get_channel(870264545338347580)
     await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
-    msgs = [ msg for msg in await nyan_ch.history().flatten() if all([not msg.author.bot,msg.content!=''])]
+    msgs = [ msg for msg in await nyan_ch.history().flatten(limit=10000) if all([not msg.author.bot,msg.content!=''])]
     msg_num = len(msgs)
     for msg in msgs:
         num = 0
