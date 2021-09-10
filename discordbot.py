@@ -221,6 +221,13 @@ async def on_ready():
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*10000)/100}%")
         print(f"{msg.content}")
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ読み終わりました。')
+    text = ""
+    ready_log_ch = client.get_channel(885866610005532672)
+    for (i,j) in zip(feeling_dict.keys(),feeling_dict.values()):
+        text += f"・**{(client.get_user).name}** [*{j}*]\n"
+    if len(text) < 2000:
+        em = discord.Embed(title="好感度リスト",description=text)
+        await ready_log_ch.send(embed=em)
     talk_flag = True
     
     ch_edit_loop.start()
