@@ -85,6 +85,10 @@ g_word_tuple = (
     "こんばんは","今晩は","コンバンハ","嬉しい","ごめんね","ゴメンね"
 )
 
+simo_word_tuple = (
+    'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
+)
+
 need_word_tuple = (
     'nya', 'Nya', 'NYA',
     'にゃ', 'ニャ', 'ﾆｬ'
@@ -211,6 +215,9 @@ async def on_ready():
         for word in ng_word_tuple:
             if word in msg.content:
                 num -= 1
+        for word in simo_word_tuple:
+            if word in msg.content:
+                num -= 2
         for word in g_word_tuple:
             if word in msg.content and check_per(50):
                 num += 1
@@ -340,73 +347,73 @@ async def on_message(msg):
             return
         if msg_ctt.startswith("(") or msg_ctt.startswith("（"):
             return
-        async with channel.typing():
-            flag2 = False
-            if not user_id in usersMsgLogDict:
-                usersMsgLogDict[user_id] = ['temp']
-            if not msg.author.id in feeling_dict:
-                feeling_dict[user_id] = 0
-            for word in ng_word_tuple:
-                if word in ctt:
-                    feeling_dict[user_id] = feeling_dict[user_id]-1
-            for word in g_word_tuple:
-                if word in ctt and check_per(50):
-                    feeling_dict[user_id] = feeling_dict[user_id]+1
-            feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
-            res = talk.get(msg_ctt)
-            feeling_num = feeling_dict[user_id]
-            if msg.author.id == 827903603557007390:
-                feeling_dict[user_id] = int(random.randint(7,10))
-            if check_per(5+feeling_dict[user_id]):
-                feeling_dict[user_id] += 1
-            if check_per(5-feeling_dict[user_id]):
-                feeling_dict[user_id] -= 1
-            
-            similarly_list = []
-            similarly_result = 0.0
-            if len(usersMsgLogDict[user_id]) > 0:
-                for i in usersMsgLogDict[user_id]:
-                    similarly_list.append(check_similarly(i,msg_ctt))
-                similarly_result = sum(similarly_list)/len(similarly_list)
-            usersMsgLogDict[user_id].append(msg_ctt)
-            temp_list = usersMsgLogDict[user_id]
-            if len(temp_list) > 3:
-                usersMsgLogDict[user_id] = temp_list[1:]
+        flag2 = False
+        if not user_id in usersMsgLogDict:
+            usersMsgLogDict[user_id] = ['temp']
+        if not msg.author.id in feeling_dict:
+            feeling_dict[user_id] = 0
+        for word in ng_word_tuple:
+            if word in ctt:
+                feeling_dict[user_id] = feeling_dict[user_id]-1
+        for word in g_word_tuple:
+            if word in ctt and check_per(50):
+                feeling_dict[user_id] = feeling_dict[user_id]+1
+        feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
+        res = talk.get(msg_ctt)
+        feeling_num = feeling_dict[user_id]
+        if msg.author.id == 827903603557007390:
+            feeling_dict[user_id] = int(random.randint(7,10))
+        if check_per(5+feeling_dict[user_id]):
+            feeling_dict[user_id] += 1
+        if check_per(5-feeling_dict[user_id]):
+            feeling_dict[user_id] -= 1
 
-            if feeling_num >= -5:
-                if user_id == 827903603557007390:
-                    res = res.replace("あなた", "ご主人様")
-                if feeling_num >= 0:
-                    res = nyan_translator(res)
-                if feeling_num >= 2:
-                    res = nyan_translator2(res,msg.author)
-                if feeling_num >= 5:
-                    res = nyan_translator3(res,msg.author)
-                if 'ご主人様は良く' in res:
-                    res = '(´・ω・｀)'
-                if '大丈夫ですか' in res:
-                    res = "頭"+res
-                if '時計を持って' in res and feeling_num >= 8:
-                    res = f'**{datetime.now(JST).hour}**時にゃ'
-                simo_check_tuple = (
-                    'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
+        similarly_list = []
+        similarly_result = 0.0
+        if len(usersMsgLogDict[user_id]) > 0:
+            for i in usersMsgLogDict[user_id]:
+                similarly_list.append(check_similarly(i,msg_ctt))
+            similarly_result = sum(similarly_list)/len(similarly_list)
+        usersMsgLogDict[user_id].append(msg_ctt)
+        temp_list = usersMsgLogDict[user_id]
+        if len(temp_list) > 3:
+            usersMsgLogDict[user_id] = temp_list[1:]
+
+        if feeling_num >= -5:
+            if user_id == 827903603557007390:
+                res = res.replace("あなた", "ご主人様")
+            if feeling_num >= 0:
+                res = nyan_translator(res)
+            if feeling_num >= 2:
+                res = nyan_translator2(res,msg.author)
+            if feeling_num >= 5:
+                res = nyan_translator3(res,msg.author)
+            if 'ご主人様は良く' in res:
+                res = '(´・ω・｀)'
+            if '大丈夫ですか' in res:
+                res = "頭"+res
+            if '時計を持って' in res and feeling_num >= 8:
+                res = f'**{datetime.now(JST).hour}**時にゃ'
+            simo_check_tuple = (
+                'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
+            )
+            simo_check = 0
+            for i in simo_check_tuple:
+                if i in msg_ctt:
+                    simo_check += 1
+            if simo_check > 0:
+                res = random.choice(
+                    ['( ˘•ω•˘ )','( ´•ω•｀)','(   ˙-˙   )','(｡•́ - •̀｡)','(  ´0ω0`)']
                 )
-                simo_check = 0
-                for i in simo_check_tuple:
-                    if i in msg_ctt:
-                        simo_check += 1
-                if simo_check > 0:
-                    res = random.choice(
-                        ['( ˘•ω•˘ )','( ´•ω•｀)','(   ˙-˙   )','(｡•́ - •̀｡)','(  ´0ω0`)']
-                    )
-                    feeling_dict[msg.author.id] -= simo_check
+                feeling_dict[msg.author.id] -= simo_check
 
-                if similarly_result >= 0.5 and len(temp_list) > 2:
-                    feeling_dict[user_id] -= 3
-                    res = random.choice(
-                        ['(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
-                    )
-                print("af: "+res)
+            if similarly_result >= 0.5 and len(temp_list) > 2:
+                feeling_dict[user_id] -= 3
+                res = random.choice(
+                    ['(   ¯−¯ )','(   ˙-˙   )','(´-ι_-｀)','(￣･ω･￣)']
+                )
+            print("af: "+res)
+            async with channel.typing():
                 if last_word != res:
                     time = int(len(res)/10)+1
                     await asyncio.sleep(time)
@@ -421,6 +428,6 @@ async def on_message(msg):
                     em.add_field(name='類似性',value=similarly_result)
                     log_ch = client.get_channel(878594409166430259)
                     await log_ch.send(embed=em)
-            flag2 = True
+                flag2 = True
             
 client.run(token)
