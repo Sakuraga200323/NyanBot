@@ -221,11 +221,10 @@ async def on_ready():
         for word in g_word_tuple:
             if word in msg.content and check_per(50):
                 num += 1
-        if num!=0:
-            if not msg.author.id in feeling_dict:
-                feeling_dict[msg.author.id] = num
-            else:
-                feeling_dict[msg.author.id] += num
+        if not msg.author.id in feeling_dict:
+            feeling_dict[msg.author.id] = num
+        else:
+            feeling_dict[msg.author.id] += num
         readed_msg_num += 1
         if (check_per(1) or readed_msg_num==msg_num):
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*10000)/100}%")
@@ -392,8 +391,10 @@ async def on_message(msg):
                 res = '(´・ω・｀)'
             if '大丈夫ですか' in res:
                 res = "頭"+res
-            if 'はよくするん' in res:
-                res = ":thinking:"
+            if 'はよくする' in res:
+                res = random.choice([':thinking:','😇','( ˘ω˘ )'])
+            if '生きるの' in res:
+                res = random.choice(['ｽﾝｯ( ˙꒳​˙  )','( ´•ω•` )','( ˘ω˘ )'])
             if '時計を持って' in res and feeling_num >= 8:
                 res = f'**{datetime.now(JST).hour}**時にゃ'
             simo_check_tuple = (
