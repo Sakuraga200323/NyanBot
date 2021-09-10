@@ -331,9 +331,9 @@ async def on_message(msg):
                     res = nyan_translator2(res,msg.author)
                 if feeling_num >= 5:
                     res = nyan_translator3(res,msg.author)
-                if  'ご主人様は良く' in res:
+                if 'ご主人様は良く' in res:
                     res = '(´・ω・｀)'
-                if  '大丈夫ですか' in res:
+                if '大丈夫ですか' in res:
                     res = "頭"+res
                 if '時計を持って' in res and feeling_num >= 8:
                     res = f'**{datetime.now(JST).hour}**時にゃ'
