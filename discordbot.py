@@ -170,6 +170,7 @@ def check_samenum(a,n):
     
 flag = True
 flag2 = True
+talk_flag = True
 master_flag = True
 
 talk = Talk()
@@ -178,7 +179,7 @@ feeling_dict = {}
     
 @client.event
 async def on_ready():
-    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch, feeling_dict
+    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch, feeling_dict, talk_flag
     log_ch = client.get_channel(870264545338347580)
     await log_ch.send('起動準備中…')
 
@@ -190,6 +191,7 @@ async def on_ready():
     
     nyan_ch = client.get_channel(870264545338347580)
     await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
+    talk_flag = False
     msgs = [ msg for msg in await nyan_ch.history(limit=10000).flatten() if all([not msg.author.bot,msg.content!=''])]
     msg_num = len(msgs)
     readed_msg_num = 0
@@ -208,6 +210,7 @@ async def on_ready():
         if (check_per(10) or readed_msg_num==msg_num):
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*100)}%")
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ全部読み終わりました。')
+    talk_flag = true
     
     ch_edit_loop.start()
     await log_ch.send('起動完了')
@@ -287,7 +290,7 @@ async def on_message(msg):
     global damare_count
     global damarer
     global msg_count
-    global flag2, last_word, feeling_dict, usersMsgLogDict
+    global flag2, last_word, feeling_dict, usersMsgLogDict, talk_flag
     
     guild = msg.guild
     
@@ -313,7 +316,7 @@ async def on_message(msg):
             count_ch = client.get_channel(870368104805466192)
             await count_ch.send(res)
                 
-    if (msg_ctt != "" ,check_per(100)) == (True, True):
+    if all([msg_ctt != "" ,check_per(100), talk_flag]):
         ctt = msg_ctt
         user_id = msg.author.id
         if user_id == client.user.id:
