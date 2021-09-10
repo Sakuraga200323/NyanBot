@@ -167,7 +167,8 @@ def check_samenum(a,n):
         if i == a:
             num =+ 1
     return num
-    
+
+
 flag = True
 flag2 = True
 talk_flag = True
