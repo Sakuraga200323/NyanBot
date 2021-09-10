@@ -180,7 +180,7 @@ def check_samenum(a,n):
     return num
 
 def nyan_translator(str):
-    if chek_per(5):
+    if check_per(5):
         str = "まぁ、"+str
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
