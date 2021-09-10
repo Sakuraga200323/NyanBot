@@ -332,7 +332,7 @@ async def on_message(msg):
             res = talk.get(msg_ctt)
             feeling_num = feeling_dict[user_id]
             if msg.author.id == 827903603557007390:
-                feeling_dict[user_id] = 10
+                feeling_dict[user_id] = int(random.randint(7,10))
             if check_per(5+feeling_dict[user_id]):
                 feeling_dict[user_id] += 1
             if check_per(5-feeling_dict[user_id]):
