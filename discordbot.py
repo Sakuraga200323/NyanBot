@@ -221,7 +221,7 @@ async def on_ready():
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*10000)/100}%")
         print(f"{msg.content}")
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ読み終わりました。')
-    talk_flag = true
+    talk_flag = True
     
     ch_edit_loop.start()
     await log_ch.send('起動完了')
