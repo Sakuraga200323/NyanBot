@@ -190,8 +190,10 @@ async def on_ready():
     
     nyan_ch = client.get_channel(870264545338347580)
     await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
-    msgs = [ msg for msg in await nyan_ch.history().flatten(limit=10000) if all([not msg.author.bot,msg.content!=''])]
+    msgs = [ msg for msg in await nyan_ch.history(limit=10000).flatten() if all([not msg.author.bot,msg.content!=''])]
     msg_num = len(msgs)
+    readed_msg_num = 0
+    reading_msg = await log_ch.send('読破割合:0%')
     for msg in msgs:
         num = 0
         for word in ng_word_tuple:
@@ -202,6 +204,9 @@ async def on_ready():
                 num += 1
         if num!=0:
             feeling_dict[msg.author.id] = num
+        readed_msg_num += 1
+        if (check_per(10%) or readed_msg_num==msg_num):
+            await reading_msg.edit(content=f"読破割合:int({readed_msg_num/msg_num})")
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ全部読み終わりました。')
     
     ch_edit_loop.start()
