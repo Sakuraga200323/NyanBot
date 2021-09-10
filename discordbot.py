@@ -155,7 +155,7 @@ class Tsukineko:
         return self.client.get_channel(id)
 
 tf = Tsukineko()
-tf.set_client(client):
+tf.set_client(client)
 
 def check_per(int):
     num = random.uniform(0, 100)
@@ -189,6 +189,7 @@ async def on_ready():
     msg_count_ch = guild.get_channel(msg_count_ch_id)
     
     nyan_ch = client.get_channel(870264545338347580)
+    await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
     msgs = [ msg for i in nayn_ch.history(limit=1000) if all(not msg.author.bot,msg.content!='')]
     for msg in msgs:
         num = 0
@@ -200,6 +201,7 @@ async def on_ready():
                 num += 1
         if num!=0:
             feeling_dict[msg.author.id] = num
+    await log_ch.send('ちょっとずるしましたが、読み終わりました。')
     
     ch_edit_loop.start()
     await log_ch.send('起動完了')
