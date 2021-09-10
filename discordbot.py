@@ -418,9 +418,7 @@ async def on_message(msg):
             print("af: "+res)
             async with channel.typing():
                 if last_word != res:
-                    time = int(len(res)/10)+1
-                    await asyncio.sleep(time)
-                    flag2 = True
+                    time = int(len(res)/12)+1
                     await asyncio.sleep(time)
                     await msg.reply(res, mention_author=False)
                     last_word = res
