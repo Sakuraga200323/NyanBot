@@ -392,6 +392,8 @@ async def on_message(msg):
                 res = '(´・ω・｀)'
             if '大丈夫ですか' in res:
                 res = "頭"+res
+            if 'はよくするん' in res:
+                res = ":thinking:"
             if '時計を持って' in res and feeling_num >= 8:
                 res = f'**{datetime.now(JST).hour}**時にゃ'
             simo_check_tuple = (
