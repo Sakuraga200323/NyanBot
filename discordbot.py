@@ -215,7 +215,10 @@ async def on_ready():
             if word in msg.content and check_per(50):
                 num += 1
         if num!=0:
-            feeling_dict[msg.author.id] = num
+            if not msg.author.id in feeling_dict:
+                feeling_dict[msg.author.id] = num
+            else:
+                feeling_dict[msg.author.id] += num
         readed_msg_num += 1
         if (check_per(1) or readed_msg_num==msg_num):
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*10000)/100}%")
