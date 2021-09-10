@@ -224,7 +224,7 @@ async def on_ready():
     text = ""
     ready_log_ch = client.get_channel(885866610005532672)
     for (i,j) in zip(feeling_dict.keys(),feeling_dict.values()):
-        text += f"・**{(client.get_user).name}** [*{j}*]\n"
+        text += f"・**{(client.get_user(i)).name}** [*{j}*]\n"
     if len(text) < 2000:
         em = discord.Embed(title="好感度リスト",description=text)
         await ready_log_ch.send(embed=em)
