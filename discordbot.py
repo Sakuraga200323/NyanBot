@@ -208,15 +208,14 @@ async def on_ready():
     reading_msg = await log_ch.send('読破割合:00.00%')
     for msg in msgs:
         num = 0
-        if is_japanese(msg.content):
-            for word in ng_word_tuple:
-                if word in msg.content:
-                    num -= 1
-            for word in g_word_tuple:
-                if word in msg.content and check_per(50):
-                    num += 1
-            if num!=0:
-                feeling_dict[msg.author.id] = num
+        for word in ng_word_tuple:
+            if word in msg.content:
+                num -= 1
+        for word in g_word_tuple:
+            if word in msg.content and check_per(50):
+                num += 1
+        if num!=0:
+            feeling_dict[msg.author.id] = num
         readed_msg_num += 1
         if (check_per(1) or readed_msg_num==msg_num):
             await reading_msg.edit(content=f"読破割合:{int(readed_msg_num/msg_num*10000)/100}%")
