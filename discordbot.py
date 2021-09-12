@@ -323,10 +323,9 @@ async def on_message(msg):
     msg_author_id = msg.author.id
 
     if not msg.author.bot:
-        if not msg.guild:
-            return
-        if msg.guild.id == 870264494541135882:
-            msg_count += 1
+        if msg.guild:
+            if msg.guild.id == 870264494541135882:
+                msg_count += 1
 
     if (msg_ctt.startswith(prefix)):
         command = msg_ctt.split(prefix)[1]
@@ -350,7 +349,7 @@ async def on_message(msg):
                 id = int(id)
                 num = int(num)
                 if id in feeling_dict:
-                    feeling_fict[id] = num
+                    feeling_dict[id] = num
                     user = client.get_user(id)
                     await msg_ch.send(f"{user} = {feeling_dict[id]}")
                 else:
