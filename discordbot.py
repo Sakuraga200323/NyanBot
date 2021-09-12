@@ -190,6 +190,7 @@ master_flag = True
 talk = Talk()
 last_word = ''
 feeling_dict = {}
+kigen = 0
     
 @client.event
 async def on_ready():
@@ -238,6 +239,8 @@ async def on_ready():
         em = discord.Embed(title="好感度リスト",description=text)
         await ready_log_ch.send(embed=em)
     talk_flag = True
+    
+    kigen = int(random.randint(-10,10))
     
     ch_edit_loop.start()
     await log_ch.send('起動完了')
@@ -310,6 +313,7 @@ async def on_message(msg):
     global damarer
     global msg_count
     global flag2, last_word, feeling_dict, usersMsgLogDict, talk_flag
+    global kigen
     
     guild = msg.guild
     
@@ -324,10 +328,27 @@ async def on_message(msg):
     if (msg_ctt.startswith(prefix)):
         command = msg_ctt.split(prefix)[1]
 
-        if (command == " ping"):
+        if (command == "ping"):
             re_tuple = ("にゃ…にゃんぐ…///","はわわ…","にゃん？")
             comment = random.choice(list(re_tuple))
             await msg_ch.send(comment)
+        if (command.startswith("set_kigen ")):
+            num = command.split("set_kigen ")[1]
+            comment = random.choice(list(re_tuple))
+            kigen = num
+            await msg_ch.send(f"kigen = {kigen}")
+        if (command.startswith("set_feeling ")):
+            id = command.split(" ")[1]
+            num = command.split(" ")[2]
+            if id in feeling_dict:
+                feeling_fict[id] = num
+                user = client.get_user(id)
+                await msg_ch.send(f"{user} = {feeling_dict[id]}")
+        if (command.startswith("check_feeling ")):
+            id = command.split("check_feeling ")[1]
+            if id in feeling_dict:
+                user = client.get_user(id)
+                await msg_ch.send(f"{user} = {feeling_dict[id]}")
 
     if msg_ch.id == 870368104805466192:
         if msg_ctt.isdigit() and check_per(50):
@@ -354,9 +375,13 @@ async def on_message(msg):
         for word in ng_word_tuple:
             if word in ctt:
                 feeling_dict[user_id] = feeling_dict[user_id]-1
+                if check_per(15+kigen):
+                    kigen -= 1
         for word in g_word_tuple:
             if word in ctt and check_per(50):
                 feeling_dict[user_id] = feeling_dict[user_id]+1
+            if check_per(15+kigen):
+                kigen += 1
         feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
         res = talk.get(msg_ctt)
         feeling_num = feeling_dict[user_id]
@@ -377,7 +402,7 @@ async def on_message(msg):
         temp_list = usersMsgLogDict[user_id]
         if len(temp_list) > 3:
             usersMsgLogDict[user_id] = temp_list[1:]
-
+        feeling_num += kigen
         if feeling_num >= -5:
             if user_id == 827903603557007390:
                 res = res.replace("あなた", "ご主人様")
