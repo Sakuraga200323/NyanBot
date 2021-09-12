@@ -356,7 +356,7 @@ async def on_message(msg):
                     await msg_author.send(f"kigen = {kigen}")
                 else:
                     await msg_author.send(f"数字…")
-            if (command.startswith("check_kigen ")):
+            if (command.startswith("check_kigen")):
                 await msg_author.send(f"kigen = {kigen}")
             if (command.startswith("set_feeling ")):
                 id = command.split(" ")[1]
