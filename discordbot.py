@@ -337,7 +337,6 @@ async def on_message(msg):
             await msg_ch.send(comment)
         if (command.startswith("set_kigen ")):
             num = command.split("set_kigen ")[1]
-            comment = random.choice(list(re_tuple))
             kigen = num
             await msg_ch.send(f"kigen = {kigen}")
         if (command.startswith("set_feeling ")):
@@ -347,11 +346,15 @@ async def on_message(msg):
                 feeling_fict[id] = num
                 user = client.get_user(id)
                 await msg_ch.send(f"{user} = {feeling_dict[id]}")
+            else:
+                await msg_ch.send(f"いない！")
         if (command.startswith("check_feeling ")):
             id = command.split("check_feeling ")[1]
             if id in feeling_dict:
                 user = client.get_user(id)
                 await msg_ch.send(f"{user} = {feeling_dict[id]}")
+            else:
+                await msg_ch.send(f"いない！")
 
     if msg_ch.id == 870368104805466192:
         if msg_ctt.isdigit() and check_per(50):
