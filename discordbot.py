@@ -208,7 +208,9 @@ async def on_ready():
     for i in list("...................."):
         msg = nyan_ch.last_message
         if msg.author.id == client.user.id:
-            await msg.delete:
+            await msg.delete()
+        else:
+            break
     await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
     talk_flag = False
     msgs = [ msg for msg in await nyan_ch.history(limit=1000).flatten() if all([not msg.author.bot,msg.content!=''])]
