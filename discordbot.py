@@ -194,7 +194,7 @@ kigen = 0
     
 @client.event
 async def on_ready():
-    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch, feeling_dict, talk_flag
+    global odakenko, guild, nyanlog_ch, user_numlog_ch, msg_count_ch, feeling_dict, talk_flag, kigen
     log_ch = client.get_channel(870264545338347580)
     await log_ch.send('起動準備中…')
 
