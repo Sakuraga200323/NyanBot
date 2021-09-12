@@ -350,7 +350,7 @@ async def on_message(msg):
         if msg_author.id == 827903603557007390:
             if (command.startswith("set_kigen ")):
                 num = command.split("set_kigen ")[1]
-                if id.isdigit():
+                if num.isdigit():
                     num = int(num)
                     kigen = num
                     await msg_author.send(f"kigen = {kigen}")
@@ -361,7 +361,7 @@ async def on_message(msg):
             if (command.startswith("set_feeling ")):
                 id = command.split(" ")[1]
                 num = command.split(" ")[2]
-                if id.isdigit():
+                if id.isdigit() and num.isdigit():
                     id = int(id)
                     num = int(num)
                     if id in feeling_dict:
