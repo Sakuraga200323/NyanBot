@@ -205,10 +205,13 @@ async def on_ready():
     msg_count_ch = guild.get_channel(msg_count_ch_id)
     
     nyan_ch = client.get_channel(870264545338347580)
-    for i in list("...................."):
+    for i in list("........................................"):
         msg = nyan_ch.last_message
-        if msg.author.id == client.user.id:
-            await msg.delete()
+        if nyan_ch.last_message.author.id == client.user.id:
+            try:
+                await nyan_ch.last_message.delete()
+            else:
+                pass
         else:
             break
     await log_ch.send('今めっちゃログ読んでるので待ってください(白目)')
