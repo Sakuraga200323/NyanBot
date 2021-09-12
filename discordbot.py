@@ -320,6 +320,7 @@ async def on_message(msg):
     msg_ctt = msg.content
     msg_ch = msg.channel
     channel = msg_ch
+    msg_author = msg.author
     msg_author_id = msg.author.id
 
     if not msg.author.bot:
