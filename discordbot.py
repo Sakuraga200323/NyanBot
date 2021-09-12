@@ -337,24 +337,37 @@ async def on_message(msg):
             await msg_ch.send(comment)
         if (command.startswith("set_kigen ")):
             num = command.split("set_kigen ")[1]
-            kigen = num
-            await msg_ch.send(f"kigen = {kigen}")
+            if id.isdigit():
+                num = int(num)
+                kigen = num
+                await msg_ch.send(f"kigen = {kigen}")
+            else:
+                await msg_ch.send(f"数字…")
         if (command.startswith("set_feeling ")):
             id = command.split(" ")[1]
             num = command.split(" ")[2]
-            if id in feeling_dict:
-                feeling_fict[id] = num
-                user = client.get_user(id)
-                await msg_ch.send(f"{user} = {feeling_dict[id]}")
+            if id.isdigit():
+                id = int(id)
+                num = int(num)
+                if id in feeling_dict:
+                    feeling_fict[id] = num
+                    user = client.get_user(id)
+                    await msg_ch.send(f"{user} = {feeling_dict[id]}")
+                else:
+                    await msg_ch.send(f"いない！")
             else:
-                await msg_ch.send(f"いない！")
+                await msg_ch.send(f"数字…")
         if (command.startswith("check_feeling ")):
             id = command.split("check_feeling ")[1]
-            if id in feeling_dict:
-                user = client.get_user(id)
-                await msg_ch.send(f"{user} = {feeling_dict[id]}")
+            if id.isdigit():
+                id = int(id)
+                if id in feeling_dict:
+                    user = client.get_user(id)
+                    await msg_ch.send(f"{user} = {feeling_dict[id]}")
+                else:
+                    await msg_ch.send(f"いない！")
             else:
-                await msg_ch.send(f"いない！")
+                await msg_ch.send(f"数字…")
 
     if msg_ch.id == 870368104805466192:
         if msg_ctt.isdigit() and check_per(50):
