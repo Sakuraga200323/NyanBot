@@ -322,8 +322,11 @@ async def on_message(msg):
     channel = msg_ch
     msg_author_id = msg.author.id
 
-    if not msg.author.bot and msg.guild.id == 870264494541135882 and msg.author.id != client.user.id:
-        msg_count += 1
+    if not msg.author.bot:
+        if not msg.guild:
+            return
+        if msg.guild.id == 870264494541135882:
+            msg_count += 1
 
     if (msg_ctt.startswith(prefix)):
         command = msg_ctt.split(prefix)[1]
