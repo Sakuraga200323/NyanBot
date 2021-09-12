@@ -210,6 +210,8 @@ async def on_ready():
         if nyan_ch.last_message.author.id == client.user.id:
             try:
                 await nyan_ch.last_message.delete()
+            except:
+                pass
             else:
                 pass
         else:
