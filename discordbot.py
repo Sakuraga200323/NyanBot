@@ -204,7 +204,7 @@ async def status_loop():
     global kigen
     global temp_num_count
     temp_num_count += 1
-    await client.change_presence(activity=discord.Game(name=f"起動完了({temp_num_count})"))
+    await client.change_presence(activity=discord.Game(name=f"気分:{kigen}｜{temp_num_count}"))
 
 class Tsukineko:
     def set_client(self,c):
@@ -303,7 +303,7 @@ async def on_ready():
     
     ch_edit_loop.start()
     kigen_loop.start()
-    status_loop.starts()
+    status_loop.start()
     await log_ch.send('起動完了')
 
 def nyan_translator(str):
