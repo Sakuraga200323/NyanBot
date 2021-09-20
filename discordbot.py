@@ -484,6 +484,7 @@ async def on_message(msg):
         kigen = max(min(100,kigen),-30)
         feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
         msg_ctt = msg_ctt.replace("なまえ","名前")
+        msg_ctt = msg_ctt.replace("雪猫","君")
         res = talk.get(msg_ctt)
         feeling_num = feeling_dict[user_id]
         if msg.author.id == 827903603557007390:
