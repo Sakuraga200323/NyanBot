@@ -170,6 +170,7 @@ async def ch_edit_loop():
     global NYAN
     global msg_count
     global kigen
+    await client.change_presence(activity=discord.Game(name=f"気分：kigen"))
     if msg_count > 0:
         num_result = get_data(msg_count_ch) + msg_count
         ch_name = f'総発言数：{num_result}'
@@ -196,7 +197,7 @@ async def ch_edit_loop():
 async def kigen_loop():
     global kigen
     if check_per(50):
-        kigen += int(random.randint(-10,10))
+        kigen += int(random.randint(-3,3))
 
 class Tsukineko:
     def set_client(self,c):
