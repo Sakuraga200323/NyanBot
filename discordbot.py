@@ -375,6 +375,12 @@ async def on_message(msg):
         if msg.guild:
             if msg.guild.id == 870264494541135882:
                 msg_count += 1
+                
+    
+    
+    if check_per(50) and is_japanese(msg_ctt):
+        kigen += int(random.randint(-10,10))
+        
 
     if (msg_ctt.startswith(prefix)):
         command = msg_ctt.split(prefix)[1]
