@@ -420,7 +420,7 @@ async def on_message(msg):
                 else:
                     await msg_author.send(f"数字…")
             await msg.delete()
-       else:
+        else:
             if (command.startswith("check_kigen")):
                 await msg_ch.send(f"{kigen}")
             
