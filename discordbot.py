@@ -317,6 +317,8 @@ def nyan_translator(str):
         str = "…？　"+str
     if check_per(3):
         str = "おほ〜( ´ ω ` )"
+    if check_per(50):
+        str = str.replace("ごめんなさい",""…)
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
     print("A"+str)
