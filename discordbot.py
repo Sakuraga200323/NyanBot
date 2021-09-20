@@ -281,9 +281,12 @@ async def on_ready():
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ読み終わりました。')
     text = ""
     ready_log_ch = client.get_channel(885866610005532672)
+    temp_dict = {}
     feeling_dict = sorted(feeling_dict.items(), key=lambda i: i[1], reverse=True)
     for i in (feeling_dict):
         text += f"・ [*{i[1]}*]**{(client.get_user(i[0])).name}**\n"
+        temp_dict[i[0]] = i[1]
+    feeling_dict = temp_dict
     if len(text) < 2000:
         em = discord.Embed(title="好感度リスト",description=text)
         await ready_log_ch.send(embed=em)
