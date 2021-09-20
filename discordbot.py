@@ -314,7 +314,7 @@ def nyan_translator(str):
     if check_per(7):
         str = "そうですね、"+str
     if check_per(7):
-        str = "、、？　"+str
+        str = "…？　"+str
     if check_per(3):
         str = "おほ〜( ´ ω ` )"
     if check_per(5) and not '/' in str and not '♡' in str:
@@ -531,6 +531,7 @@ async def on_message(msg):
             if 'そうで' in res and feeling_num >= 6:
                 res = f'せやな、知らんけど！'
             res = res.replace("。", " ")
+            res = res.replace("、", " ")
             simo_check_tuple = (
                 'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
             )
