@@ -457,7 +457,7 @@ async def on_message(msg):
                 feeling_dict[user_id] = feeling_dict[user_id]+1
                 if check_per(15):
                     kigen += 1
-        kigen = max(min(100,kigen),-150)
+        kigen = max(min(100,kigen),-30)
         feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
         res = talk.get(msg_ctt)
         feeling_num = feeling_dict[user_id]
