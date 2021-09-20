@@ -455,8 +455,8 @@ async def on_message(msg):
         for word in g_word_tuple:
             if word in ctt and check_per(50):
                 feeling_dict[user_id] = feeling_dict[user_id]+1
-            if check_per(15):
-                kigen += 1
+                if check_per(15):
+                    kigen += 1
         kigen = max(min(100,kigen),-150)
         feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
         res = talk.get(msg_ctt)
