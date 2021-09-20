@@ -315,6 +315,8 @@ def nyan_translator(str):
         str = "そうですね、"+str
     if check_per(7):
         str = "、、？　"+str
+    if check_per(3):
+        str = "おほ〜( ´ ω ` )"
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
     print("A"+str)
@@ -509,7 +511,7 @@ async def on_message(msg):
             if '身長' in res:
                 res = random.choice(('152cmです','だいたい150くらいですね','150ちょっと…？'))
             if 'ない' in res and ("名前" in msg_ctt or "なまえ" in msg_ctt):
-                res = random.choice(('雪猫です',"雪猫と申します","雪猫ですね","雪猫"))
+                res = random.choice(("雪猫…？ です",'雪猫です',"雪猫と申します","雪猫ですね","ゆきねこです"))
             if feeling_num >= 0:
                 res = nyan_translator(res)
             if feeling_num >= 2:
@@ -519,13 +521,15 @@ async def on_message(msg):
             if 'ご主人様は良く' in res:
                 res = '(´・ω・｀)'
             if '大丈夫ですか' in res:
-                res = "頭"+res
+                res = random.choice(("頭","脳味噌","")+res
             if 'はよくする' in res:
                 res = random.choice([':thinking:','😇','( ˘ω˘ )'])
             if '生きるの' in res:
                 res = random.choice(['ｽﾝｯ( ˙꒳​˙  )','( ´•ω•` )','( ˘ω˘ )'])
             if '時計を持って' in res and feeling_num >= 8:
                 res = f'**{datetime.now(JST).hour}**時にゃ'
+            if 'そうで' in res and feeling_num >= 6:
+                res = f'せやな、知らんけど！'
             res = res.replace("。", " ")
             simo_check_tuple = (
                 'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
