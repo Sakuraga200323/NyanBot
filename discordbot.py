@@ -165,12 +165,12 @@ feeling_dict = {}
 kigen = 0
 
 
-@tasks.loop(seconds=10)
+@tasks.loop(seconds=5)
 async def ch_edit_loop():
     global NYAN
     global msg_count
     global kigen
-    await client.change_presence(activity=discord.Game(name=f"気分：kigen"))
+    await client.change_presence(activity=discord.Game(name=f"気分：{kigen}"))
     if msg_count > 0:
         num_result = get_data(msg_count_ch) + msg_count
         ch_name = f'総発言数：{num_result}'
