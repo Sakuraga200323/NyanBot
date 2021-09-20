@@ -298,6 +298,10 @@ def nyan_translator(str):
         str = "まぁ、"+str
     if check_per(7):
         str = "うん、"+str
+    if check_per(7):
+        str = "そうですね、"+str
+    if check_per(7):
+        str = "、、？　"+str
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
     print("A"+str)
@@ -488,6 +492,10 @@ async def on_message(msg):
         if feeling_num >= -5:
             if user_id == 827903603557007390:
                 res = res.replace("あなた", "ご主人様")
+            if '身長' in res:
+                res = random.choice(('152cmです','だいたい150くらいですね','150ちょっと…？'))
+            if 'わからない' in res and ("名前" in msg_ctt or "なまえ" in msg_ctt):
+                res = random.choice(('雪猫です'))
             if feeling_num >= 0:
                 res = nyan_translator(res)
             if feeling_num >= 2:
