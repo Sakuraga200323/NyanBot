@@ -175,12 +175,6 @@ async def ch_edit_loop():
         ch_name = f'総発言数：{num_result}'
         await msg_count_ch.edit(name=ch_name)
         msg_count = 0
-
-@tasks.loop(seconds=300)
-async def kigen_loop():
-    global kigen
-    if check_per(50):
-        kigen += int(random.randint(-30,30))
         
         
     user_num = len(guild.members)
@@ -198,7 +192,12 @@ async def kigen_loop():
     member = guild.get_member(client.user.id)
     await member.edit(nick='汎用自己学習型会話AI ≪雪猫≫')
 
-    
+@tasks.loop(seconds=300)
+async def kigen_loop():
+    global kigen
+    if check_per(50):
+        kigen += int(random.randint(-30,30))
+
 class Tsukineko:
     def set_client(self,c):
         self.client = c
