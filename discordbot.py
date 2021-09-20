@@ -318,7 +318,7 @@ def nyan_translator(str):
     if check_per(3):
         str = "おほ〜( ´ ω ` )"
     if check_per(50):
-        str = str.replace("ごめんなさい",""…)
+        str = str.replace("ごめんなさい","…")
     if check_per(5) and not '/' in str and not '♡' in str:
         str += random.choice(["ฅ^•ω•^ฅ","^ω^）","( ´ ω ` )","(´・ω・｀)","(・ω・)"])
     print("A"+str)
@@ -452,7 +452,7 @@ async def on_message(msg):
             
             
     if msg_ch.id == 870368104805466192:
-        if msg_ctt.isdigit() and check_per(50):
+        if msg_ctt.isdigit() and check_per(50) and not msg.author.bot:
             res = int(msg_ctt) + 1
             count_ch = client.get_channel(870368104805466192)
             await count_ch.send(res)
