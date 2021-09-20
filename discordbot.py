@@ -196,7 +196,7 @@ async def ch_edit_loop():
 async def kigen_loop():
     global kigen
     if check_per(50):
-        kigen += int(random.randint(-30,30))
+        kigen += int(random.randint(-10,10))
 
 class Tsukineko:
     def set_client(self,c):
