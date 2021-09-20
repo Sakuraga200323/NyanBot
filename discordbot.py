@@ -526,6 +526,7 @@ async def on_message(msg):
                 res = random.choice(['ｽﾝｯ( ˙꒳​˙  )','( ´•ω•` )','( ˘ω˘ )'])
             if '時計を持って' in res and feeling_num >= 8:
                 res = f'**{datetime.now(JST).hour}**時にゃ'
+            res = res.replace("。", " ")
             simo_check_tuple = (
                 'ちんちん','チンチン','ﾁﾝﾁﾝ','ﾁﾝｺ','ﾁﾝｺ','ちんこ','チンコ','ちんぽこ','まんこ','ﾏﾝｺ','うんこ','ｳﾝｺ','ウンコ','マンコ'
             )
