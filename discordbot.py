@@ -280,6 +280,7 @@ async def on_ready():
     await log_ch.send(f'ちょっとずるしましたが、{msg_num}メッセージ読み終わりました。')
     text = ""
     ready_log_ch = client.get_channel(885866610005532672)
+    feeling_dict = sorted(feeling_dict.items(), key=lambda i: i[1], reverse=True)
     for (i,j) in zip(feeling_dict.keys(),feeling_dict.values()):
         text += f"・ [*{j}*]**{(client.get_user(i)).name}**\n"
     if len(text) < 2000:
