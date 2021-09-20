@@ -508,7 +508,7 @@ async def on_message(msg):
             if '身長' in res:
                 res = random.choice(('152cmです','だいたい150くらいですね','150ちょっと…？'))
             if 'ない' in res and ("名前" in msg_ctt or "なまえ" in msg_ctt):
-                res = random.choice(('雪猫です'))
+                res = random.choice([('雪猫です',"雪猫と申します","雪猫ですね","雪猫")])
             if feeling_num >= 0:
                 res = nyan_translator(res)
             if feeling_num >= 2:
