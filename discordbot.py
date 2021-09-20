@@ -197,11 +197,14 @@ async def kigen_loop():
     global kigen
     if check_per(50):
         kigen += int(random.randint(-3,3))
-        
+
+temp_num_count = 0
 @tasks.loop(seconds=10)
 async def status_loop():
     global kigen
-    await client.change_presence(activity=discord.Game(name=f"気分：{kigen}"))
+    global temp_num_count
+    temp_num_count += 1
+    await client.change_presence(activity=discord.Game(name=f"起動完了({temp_num_count})"))
 
 class Tsukineko:
     def set_client(self,c):
