@@ -170,7 +170,6 @@ async def ch_edit_loop():
     global NYAN
     global msg_count
     global kigen
-    await client.change_presence(activity=discord.Game(name=f"気分：{kigen}"))
     if msg_count > 0:
         num_result = get_data(msg_count_ch) + msg_count
         ch_name = f'総発言数：{num_result}'
@@ -198,6 +197,11 @@ async def kigen_loop():
     global kigen
     if check_per(50):
         kigen += int(random.randint(-3,3))
+        
+@tasks.loop(seconds=10)
+async def status_loop():
+    global kigen
+    await client.change_presence(activity=discord.Game(name=f"気分：{kigen}"))
 
 class Tsukineko:
     def set_client(self,c):
@@ -296,6 +300,7 @@ async def on_ready():
     
     ch_edit_loop.start()
     kigen_loop.start()
+    status_loop.starts()
     await log_ch.send('起動完了')
 
 def nyan_translator(str):
@@ -499,7 +504,7 @@ async def on_message(msg):
                 res = res.replace("あなた", "ご主人様")
             if '身長' in res:
                 res = random.choice(('152cmです','だいたい150くらいですね','150ちょっと…？'))
-            if 'わからない' in res and ("名前" in msg_ctt or "なまえ" in msg_ctt):
+            if 'ない' in res and ("名前" in msg_ctt or "なまえ" in msg_ctt):
                 res = random.choice(('雪猫です'))
             if feeling_num >= 0:
                 res = nyan_translator(res)
