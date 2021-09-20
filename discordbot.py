@@ -123,17 +123,64 @@ odaneko = None
 guild = None
 nyanlog_ch = None
 user_numlog_ch = None
-msg_count_ch = None
+msg_count_ch = None    
+class Tsukineko:
+    def set_client(self,c):
+        self.client = c
+    def get_ch(self,id):
+        return self.client.get_channel(id)
+
+tf = Tsukineko()
+tf.set_client(client)
+
+def check_per(int):
+    num = random.uniform(0, 100)
+    return num <= int
+
+def check_samenum(a,n):
+    num = 0
+    for i in n:
+        if i == a:
+            num =+ 1
+    return num
+
+def is_japanese(string):
+    for ch in string:
+        name = unicodedata.name(ch) 
+        if "CJK UNIFIED" in name \
+        or "HIRAGANA" in name \
+        or "KATAKANA" in name:
+            return True
+    return False
+
+
+flag = True
+flag2 = True
+talk_flag = True
+master_flag = True
+
+talk = Talk()
+last_word = ''
+feeling_dict = {}
+kigen = 0
+
 
 @tasks.loop(seconds=10)
 async def ch_edit_loop():
     global NYAN
     global msg_count
+    global kigen
     if msg_count > 0:
         num_result = get_data(msg_count_ch) + msg_count
         ch_name = f'総発言数：{num_result}'
         await msg_count_ch.edit(name=ch_name)
         msg_count = 0
+
+@tasks.loop(seconds=300)
+async def kigen_loop():
+    global kigen
+    if check_per(50):
+        kigen += int(random.randint(-30,30))
         
         
     user_num = len(guild.members)
@@ -180,17 +227,6 @@ def is_japanese(string):
         or "KATAKANA" in name:
             return True
     return False
-
-
-flag = True
-flag2 = True
-talk_flag = True
-master_flag = True
-
-talk = Talk()
-last_word = ''
-feeling_dict = {}
-kigen = 0
     
 @client.event
 async def on_ready():
@@ -255,6 +291,7 @@ async def on_ready():
     kigen = int(random.randint(-10,10))
     
     ch_edit_loop.start()
+    kigen_loop.start()
     await log_ch.send('起動完了')
 
 def nyan_translator(str):
@@ -384,6 +421,9 @@ async def on_message(msg):
                 else:
                     await msg_author.send(f"数字…")
             await msg.delete()
+       else:
+            if (command.startswith("check_kigen")):
+                await msg_ch.send(f"{kigen}")
             
             
     if msg_ch.id == 870368104805466192:
@@ -418,7 +458,7 @@ async def on_message(msg):
                 feeling_dict[user_id] = feeling_dict[user_id]+1
             if check_per(15):
                 kigen += 1
-        kigen = max(min(10,kigen),-15)
+        kigen = max(min(100,kigen),-150)
         feeling_dict[user_id] = max(min(feeling_dict[user_id],10),-10)
         res = talk.get(msg_ctt)
         feeling_num = feeling_dict[user_id]
@@ -439,7 +479,7 @@ async def on_message(msg):
         temp_list = usersMsgLogDict[user_id]
         if len(temp_list) > 3:
             usersMsgLogDict[user_id] = temp_list[1:]
-        feeling_num += kigen
+        feeling_num += int(kigen/10)
         if feeling_num >= -5:
             if user_id == 827903603557007390:
                 res = res.replace("あなた", "ご主人様")
