@@ -457,7 +457,7 @@ async def on_message(msg):
             count_ch = client.get_channel(870368104805466192)
             await count_ch.send(res)
                 
-    if all([msg_ctt != "" ,check_per(100), talk_flag], msg.author.id != client.user.id):
+    if all([msg_ctt != "",check_per(100),talk_flag,msg.author.id != client.user.id]):
         ctt = msg_ctt
         user_id = msg.author.id
         if user_id == client.user.id:
