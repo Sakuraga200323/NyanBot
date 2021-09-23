@@ -458,6 +458,7 @@ async def on_message(msg):
             await count_ch.send(res)
                 
     if all([msg_ctt != "" ,check_per(100), talk_flag]):
+        await msg.add_reaction('✅')
         ctt = msg_ctt
         user_id = msg.author.id
         if user_id == client.user.id:
@@ -567,5 +568,7 @@ async def on_message(msg):
                     log_ch = client.get_channel(878594409166430259)
                     await log_ch.send(embed=em)
                 flag2 = True
+        else:
+            flag2 = True
             
 client.run(token)
