@@ -457,8 +457,7 @@ async def on_message(msg):
             count_ch = client.get_channel(870368104805466192)
             await count_ch.send(res)
                 
-    if all([msg_ctt != "" ,check_per(100), talk_flag]):
-        await msg.add_reaction('✅')
+    if all([msg_ctt != "" ,check_per(100), talk_flag], msg.author.id != client.user.id):
         ctt = msg_ctt
         user_id = msg.author.id
         if user_id == client.user.id:
@@ -508,6 +507,7 @@ async def on_message(msg):
         if len(temp_list) > 3:
             usersMsgLogDict[user_id] = temp_list[1:]
         feeling_num += int(kigen/10)
+        await msg.add_reaction('✅')
         if feeling_num >= -5:
             if user_id == 827903603557007390:
                 res = res.replace("あなた", "ご主人様")
